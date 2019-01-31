@@ -32,8 +32,9 @@ ActiveRecord::Schema.define(version: 2019_01_31_153736) do
     t.boolean "negotiable"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "confirmed"
-    t.boolean "completed"
+    t.boolean "confirmed", default: false
+    t.boolean "completed", default: false
+    t.boolean "incomplete", default: false
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
