@@ -5,7 +5,8 @@ Rails.application.routes.draw do
 	root 'application#index'
 
 	get '/tasks' => 'tasks#index', as: 'tasks'
-	get '/tasks/new' => 'tasks#new', as: 'new_task'
+	get '/new/tasks' => 'tasks#new', as: 'new_task'
+	get '/find/tasks' => 'tasks#find'
 	post '/tasks' => 'tasks#create'
 	get '/tasks/:id' => 'tasks#show' , as: 'task'
 	get '/tasks/:id/edit' => 'tasks#edit', as: 'edit_task'
