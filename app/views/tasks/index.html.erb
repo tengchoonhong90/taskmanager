@@ -1,1 +1,7 @@
+<% if user_signed_in? %>
+<%= render template: "components/navbarLoggedIn"%>
+<% else %>
+<%= render template: "components/navbarNewUser"%>
+<% end %>
+
 <p>This is the introduction page to the site</p>
