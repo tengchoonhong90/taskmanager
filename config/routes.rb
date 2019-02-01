@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 	devise_for :users
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-	root 'application#index'
+	root 'tasks#index'
 
 	get '/tasks' => 'tasks#index', as: 'tasks'
 	get '/new/tasks' => 'tasks#new', as: 'new_task'
