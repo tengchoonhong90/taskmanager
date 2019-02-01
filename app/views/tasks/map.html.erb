@@ -1,0 +1,10 @@
+<% if user_signed_in? %>
+<%= render template: "components/navbarLoggedIn"%>
+<% else %>
+<%= render template: "components/navbarNewUser"%>
+<% end %>
+
+<p>Here is the map</p>
+
+
+

@@ -30,9 +30,12 @@ end
 	<% @tasks.each do |task| %>
 		<div class="card d-inline-block align-top m-3" style="width: 24rem;">
 			<div class="card-body">
+				<img 
+					src="<%= image_url showStatus(task) %>" 
+					class="position-relative float-right"
+				/>
 				<h5 class="card-title">
 					<%= task.task_name %>
-					<img src="<%= image_url showStatus(task) %>"/>
 				</h5>
 				<h5 class="card-text">
 					<%= number_to_currency(task.price) %>
