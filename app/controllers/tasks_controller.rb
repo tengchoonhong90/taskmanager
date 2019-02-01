@@ -17,6 +17,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    # render plain: @task.inspect
     @task.save
     redirect_to root_path
   end
@@ -25,7 +26,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     @task.update(task_params)
-    redirect_to @task
+    redirect_to @tasks
   end
 
   def destroy
@@ -37,6 +38,6 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:name, :roast, :origin_id, :price)
+    params.require(:task).permit(:task_name, :task_description, :start_time, :price, :negotiable, :location)
   end
 end
