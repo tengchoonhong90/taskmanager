@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_31_153736) do
+ActiveRecord::Schema.define(version: 2019_02_01_085056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "locations", force: :cascade do |t|
+    t.string "name"
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "reputations", force: :cascade do |t|
     t.bigint "user_id"
@@ -35,7 +43,6 @@ ActiveRecord::Schema.define(version: 2019_01_31_153736) do
     t.boolean "confirmed", default: false
     t.boolean "completed", default: false
     t.boolean "incomplete", default: false
-    t.integer "location"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
