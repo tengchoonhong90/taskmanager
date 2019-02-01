@@ -4,40 +4,69 @@
 <%= render template: "components/navbarNewUser"%>
 <% end %>
 
+<% 
+def showStatus(task)
+	if task.confirmed == false && task.completed == false && task.incomplete==false
+		return 'circles/open-circle.png'
+	elsif task.confirmed == true && task.completed == false && task.incomplete==false
+		return 'circles/closed-circle.png'
+	elsif task.confirmed == true && task.completed == true && task.incomplete==false
+		return 'circles/smily-circle.png'
+	else
+		return 'circles/closed-circle-red.png'
+	end
+end
+
+def showNego(status)
+	if status == true
+		return '(Price Negotiable)'
+	end
+end
+
+%>
+
 <h1>Here are all your tasks.</h1>
 
-<table>
-  <tr>
-    <th>Task Name</th>
-    <th>Description</th>
-    <th>Start Time</th>
-    <th>Price</th>
-    <th>Negotiable</th>
-    <th>Created On:</th>
-    <th>Confirmed</th>
-    <th>Completed</th>
-    <th>Incomplete</th>
-  </tr>
-
-  <% @tasks.each do |task| %>
-    <tr>
-      <td><%= task.task_name %></td>
-      <td><%= task.task_description %></td>
-      <td>$<%= task.start_time %></td>
-      <td><%= task.price %></td>
-      <td><%= task.negotiable %></td>
-      <td>$<%= task.created_at %></td>
-      <td><%= task.confirmed %></td>
-      <td><%= task.completed %></td>
-      <td>$<%= task.incomplete %></td>
-      <td><%= link_to 'Show', task_path(task) %></td>
-      <td><%= link_to 'Edit', edit_task_path(task) %></td>
-      <td><%= link_to 'Destroy', task_path(task),
-        method: :delete,
-        data: { confirm: 'Are you sure?' } %></td>
-    </tr>
+	<% @tasks.each do |task| %>
+		<div class="card d-inline-block align-top m-3" style="width: 24rem;">
+			<div class="card-body">
+				<h5 class="card-title">
+					<%= task.task_name %>
+					<img src="<%= image_url showStatus(task) %>"/>
+				</h5>
+				<h5 class="card-text">
+					<%= number_to_currency(task.price) %>
+					<%= showNego(task.negotiable) %>
+				</h5>
+				<h5 class="card-title">Postal Code: <%= task.location %></h5>
+				<p class="card-text">Start Time: <%= task.start_time %></p>
+				<h6 class="card-subtitle mb-2 text-muted innerDesc"> <%= task.task_description %></h6>
+				<p class="card-text">Created on: <%= task.created_at %></p>
+				<%= link_to 'Show', task_path(task) %>
+				<%= link_to 'Edit', edit_task_path(task) %>
+				<%= link_to 'Destroy', task_path(task),
+			        method: :delete,
+			        data: { confirm: 'Are you sure?' } %>
+			</div>
+		</div>
   <% end %>
 </table>
+<br/>
 
 <%= link_to 'New task', new_task_path %>
 
+<p>
+	<img src="<%= image_url 'circles/open-circle.png' %>"/>
+	This icon means the task is open for taskees.
+</p>
+<p>
+	<img src="<%= image_url 'circles/closed-circle.png' %>"/>
+	This icon means the tasker has selected the taskee.</p>
+<p>
+	<img src="<%= image_url 'circles/smiley-circle.png' %>"/>
+	This icon means that the job is done.
+</p>
+<p>
+	<img src="<%= image_url 'circles/closed-circle-red.png' %>"/>
+	This icon means that the job is incomplete, for some reason.
+</p>

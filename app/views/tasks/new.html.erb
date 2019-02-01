@@ -14,14 +14,19 @@
   </p>
 
   <p>
+    <%= form.label "Postal Code (Address)" %><br>
+    <%= form.text_field :location %>
+  </p>
+
+  <p>
     <%= form.label :task_description %><br>
     <%= form.text_area :task_description %>
   </p>
 
   <p>
-    <%= form.label :created_at %><br>
-	<%= select_date Date.today, prefix: :created_at %>
-	<%= select_time Time.new, prefix: :created_at %>
+    <%= form.label :start_time %><br>
+    <input type="datetime-local" id="task_start_time"
+       name="task[start_time]" value="2019-02-01T15:30">
   </p>
 
    <p>
@@ -30,16 +35,9 @@
   </p>
 
   <p>
-    <%= form.label :negotiable %><br>   
-	<%= radio_button_tag(:negotiable, true) %>
-	<%= label_tag(:negotiable, "Yes") %>
-	<%= radio_button_tag(:negotiable, false) %>
-	<%= label_tag(:negotiable, "No") %>
-  </p>
-
-  <p>
-    <%= form.label :location %><br>
-    <%= form.text_field :location %>
+    <%= form.label :negotiable %><br>
+    <input type="radio" name="task[negotiable]" id="task_negotiable" value=true> Yes <br>
+	<input type="radio" name="task[negotiable]" id="task_negotiable" value=false> No <br>
   </p>
 
   <p>
