@@ -21,12 +21,33 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Messages</a>
       </li>
+
+
+
+      <li class="nav-item">
+        <span class="nav-link">
+		  <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %>
+        </span>
+      </li>
+
       <li class="nav-item">
         <span class="nav-link">
           <%= link_to 'Log Out', destroy_user_session_url, method: :delete %>
         </span>
       </li>
+
+     <li class="nav-item">
+        <span class="nav-link">
+		<% if user_signed_in? %>
+		  Logged in as <strong><%= current_user.username %></strong>.
+
+		<% else %>
+		  <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+		  <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+		<% end %>
+       </span>
+      </li>
+
     </ul>
   </div>
 </nav>
-
