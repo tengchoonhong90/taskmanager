@@ -1,0 +1,8 @@
+<% if user_signed_in? %>
+<%= render template: "components/navbarLoggedIn"%>
+<% else %>
+<%= render template: "components/navbarNewUser"%>
+<% end %>
+
+<p>Here are all your tasks.</p>
+
