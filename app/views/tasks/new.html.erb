@@ -20,7 +20,7 @@
       <div class="form-group">
         <label for="TaskName">Task Name:</label>
         <%= form.text_field :task_name, placeholder:"What needs to be done?", class: "form-control", autofocus: true %>
-        <p class="error">
+        <p class="error alert-warning">
           <%= show_errors(@task, :task_name) %>
         </p>
       </div>
@@ -28,7 +28,7 @@
       <div class="form-group">
         <label for="PostalCode">Postal Code:</label>
         <%= form.text_field :location, placeholder:"XXXXXX", class: "form-control", autofocus: true %>
-        <p class="error">
+        <p class="error alert-warning">
           <%= show_errors(@task, :location) %>
         </p>
       </div>
@@ -37,7 +37,7 @@
           <label for="TaskDescription">Task Description:</label>
           <%= form.text_area :task_description, placeholder:"Please be detailed.", class: "form-control", autofocus: true %>
           <small class="form-text text-muted">Best to be S.M.A.R.T - Specific, Measurable, Achievable, Realistic, Time-based</small>
-        <p class="error">
+        <p class="error alert-warning">
           <%= show_errors(@task, :task_description) %>
         </p>
       </div>
@@ -45,7 +45,7 @@
       <div class="form-group">
         <label for="StartTime">Start Date and Time:</label>
         <input type="datetime-local" id="task_start_time"
-           name="task[start_time]" value="2019-02-01T15:30">
+           name="task[start_time]">
         <small class="form-text text-muted">What time does the task start?</small>
       </div>
 
@@ -53,20 +53,18 @@
         <label for="Price">Price ($):</label>
         <%= form.text_field :price , placeholder:"Minimum: $0", class: "form-control", autofocus: true%>
         <small class="form-text text-muted">(How much are you willing to pay?)</small>
-        <p class="error">
+        <p class="error alert-warning">
           <%= show_errors(@task, :price) %>
         </p>
       </div>
 
       <div class="form-group">
-        <p>
           <label for="Negotiable">Is the price negotiable?</label>
           <input type="checkbox" name="task[negotiable]" id="task_negotiable" value=true> Yes 
           <input type="checkbox" name="task[negotiable]" id="task_negotiable" value=false> No 
-        </p>
-        <p class="error">
-          <%= show_errors(@task, :negotiable) %>
-        </p>
+          <p class="error alert-warning">
+            <%= show_errors(@task, :negotiable) %>
+          </p>
       </div>
 
       <div class="alignCenter">
@@ -82,3 +80,4 @@
     <%= link_to 'Back', tasks_path %>
   </div>
 </div>
+
