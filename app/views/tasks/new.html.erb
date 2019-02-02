@@ -17,17 +17,27 @@
 
   <p>
     <%= form.label :task_name %><br>
-    <%= form.text_field :task_name %>
+    <%= form.text_field :task_name, placeholder:"At least 5 characters", autofocus: true %>
+  </p>
+ 
+  <p class="error">
+    <%= show_errors(@task, :task_name) %>
   </p>
 
   <p>
     <%= form.label "Postal Code (Address)" %><br>
-    <%= form.text_field :location %>
+    <%= form.text_field :location, placeholder:"6 digits", autofocus: true %>
+  </p>
+  <p class="error">
+    <%= show_errors(@task, :location) %>
   </p>
 
   <p>
     <%= form.label :task_description %><br>
-    <%= form.text_area :task_description %>
+    <%= form.text_area :task_description, placeholder:"Please be detailed.", autofocus: true %>
+  </p>
+  <p class="error">
+    <%= show_errors(@task, :task_description) %>
   </p>
 
   <p>
@@ -38,17 +48,23 @@
 
    <p>
     <%= form.label :price %><br>
-    <%= form.text_field :price %>
+    <%= form.text_field :price , placeholder:"Minimum: $0", autofocus: true%>
+  </p>
+  <p class="error">
+    <%= show_errors(@task, :price) %>
   </p>
 
   <p>
-    <%= form.label :negotiable %><br>
+    Is the price negotiable?<br>
     <input type="radio" name="task[negotiable]" id="task_negotiable" value=true> Yes <br>
 	<input type="radio" name="task[negotiable]" id="task_negotiable" value=false> No <br>
   </p>
+  <p class="error">
+    <%= show_errors(@task, :negotiable) %>
+  </p>
 
   <p>
-    <%= form.submit %>
+    <%= form.submit  "Save Task" %>
   </p>
 <% end %>
 

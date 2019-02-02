@@ -66,3 +66,6 @@ gem "bootstrap", "~> 4.1"
 gem "jquery-rails", "~> 4.3"
 
 gem "devise", "~> 4.5"
+
+# for validation of date entries
+gem 'validates_timeliness', '~> 5.0.0.alpha3'

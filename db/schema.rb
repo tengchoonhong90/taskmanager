@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2019_02_01_085056) do
     t.boolean "confirmed", default: false
     t.boolean "completed", default: false
     t.boolean "incomplete", default: false
+    t.integer "location"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
