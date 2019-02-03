@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   def index
     if user_signed_in?
       @tasks = Task.where(user_id: current_user.id)
+      @taskees = Taskee.all
     end
   end
 

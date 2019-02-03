@@ -5,6 +5,11 @@
 <% end %>
 
 <% 
+
+def numberInterested(task)
+	return @taskees.where(:task_id => task.id).length
+end
+
 def showStatus(task)
 	if task.confirmed == false && task.completed == false && task.incomplete==false
 		return 'circles/open-circle.png'
@@ -48,6 +53,7 @@ end
 						<%= showNego(task.negotiable) %>
 					</h5>
 					<h5 class="card-title">Postal Code: <%= task.location %></h5>
+					<strong class=" alert alert-warning d-inline-block">There are <%= numberInterested(task) %> interested parties.</strong>
 					<p class="card-text">Start Time: <%= task.start_time %></p>
 					<h6 class="card-subtitle mb-2 text-muted innerDesc"> <%= task.task_description %></h6>
 					<p class="card-text">Created on: <%= task.created_at %></p>
