@@ -16,8 +16,9 @@ class TaskeesController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
-    if @task.save
+    @taskee = Taskee.new(taskee_params)
+    @taskee.user_id = current_user.id
+    if @taskee.save
       redirect_to root_path
     else
       render 'new'
@@ -40,6 +41,6 @@ class TaskeesController < ApplicationController
 
   private
   def taskee_params
-    params.require(:taskee).permit(:task_id, :user_id)
+    params.require(:taskee).permit(:task_id, :user_id, :bid)
   end
 end

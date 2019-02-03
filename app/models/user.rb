@@ -4,8 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-         has_and_belongs_to_many :tasks
+         # has_and_belongs_to_many :tasks
+         has_many :tasks
          has_many :reputations
+         has_many :taskees
 
     validates :phone, numericality: { only_integer: true }
     validates :username, presence: true, length: { minimum: 5, maximum: 20 }
