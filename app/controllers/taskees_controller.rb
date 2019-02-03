@@ -1,6 +1,6 @@
 class TaskeesController < ApplicationController
 	def index
-    @tasks = Task.where.not(user_id: current_user_id)
+    @tasks = Task.where.not(user_id: current_user.id)
   end
 
   def show

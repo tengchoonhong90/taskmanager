@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all
+    if user_signed_in?
+      @tasks = Task.where(user_id: current_user.id)
+    end
   end
 
   def show
