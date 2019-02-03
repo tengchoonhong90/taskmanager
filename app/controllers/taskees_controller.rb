@@ -1,6 +1,7 @@
 class TaskeesController < ApplicationController
 	def index
     @tasks = Task.where.not(user_id: current_user.id)
+    @taskees = Taskee.all
   end
 
   def show
@@ -26,10 +27,11 @@ class TaskeesController < ApplicationController
   end
 
   def update
-    @task = Task.find(params[:id])
-
-    @task.update(task_params)
-    redirect_to @tasks
+    @taskee = Taskee.find(params[:id])
+    @taskee.user_id = current_user.id
+    byebug
+    @taskee.update(taskee_params)
+    redirect_to taskees_path
   end
 
   def destroy

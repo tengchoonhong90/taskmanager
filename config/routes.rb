@@ -23,5 +23,6 @@ Rails.application.routes.draw do
 	get '/taskees/:id/edit' => 'taskees#edit', as: 'edit_taskee'
 	patch '/taskees/:id' => 'taskees#update'
 	delete '/taskees/:id' => 'taskees#destroy'
+	get '/map' => 'taskees#map'
 
 end

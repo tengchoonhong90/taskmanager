@@ -22,9 +22,44 @@ def showNego(status)
 		return '(Price Negotiable)'
 	end
 end
+
+def promptIfBid(task) 
+	bidded = '<strong class=" alert alert-warning d-inline-block">You have already bidded</strong>'
+	if @taskees.where(:task_id => task.id, :user_id => current_user.id).exists? == true
+		return bidded.html_safe
+	end
+end
+
+def postOrPatch(task)
+	bidded = '<form action="/taskees" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓">'
+	notBidded = '<form action="/taskees" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓">'
+	if @taskees.where(:task_id => task.id, :user_id => current_user.id).exists? == true
+		return bidded.html_safe 
+	else
+		return notbidded.html_safe 
+	end
+end
+
+def showBid(task)
+	if @taskees.where(:task_id => task.id, :user_id => current_user.id).exists? == true
+		return '$' + @taskees.select(:bid).where(:task_id => task.id, :user_id => current_user.id).first.bid.to_s
+	else 
+		return 'Minimum: $0'
+	end
+end
+
+def buttonIfBid(task) 
+	bidded = '<input type="submit" name="commit" value="Change Bid" data-disable-with="Save Task" class="btn btn-success logoFont">'
+	notBidded = '<input type="submit" name="commit" value="Bid for Task" data-disable-with="Save Task" class="btn btn-success logoFont">'
+	if @taskees.where(:task_id => task.id, :user_id => current_user.id).exists? == true
+		return bidded.html_safe
+	else
+		return notBidded.html_safe
+	end
+end
+
 %>
 
-<!-- SHhow bid price. Show who posted. Allow taskee to bid. Update database accordingly -->
 <div>
 <div class="mainCenter">
 
@@ -56,10 +91,11 @@ end
 					<p class="card-text">
 						On: <%= task.created_at %>
 					</p>
+					<%= promptIfBid(task) %> 
 					<%= form_with model: @taskee do |form| %>
 						<input type="hidden" name="taskee[task_id]" id="taskee_task_id" value=<%= task.id %>>
-						<input placeholder="Minimum: $0" class="form-control" type="number" name="taskee[bid]" id="taskee_bid">
-						<input type="submit" name="commit" value="Bid for Task" data-disable-with="Save Task" class="btn btn-success logoFont">
+						<input placeholder=<%= showBid(task) %> class="form-control" type="number" name="taskee[bid]" id="taskee_bid"> 
+						<%= buttonIfBid(task) %>
 					<% end %>
 				</div>
 			</div>
@@ -68,7 +104,6 @@ end
 	<br/>
 </div>
 </div>
-
 
 <p>
 	<img src="<%= image_url 'circles/open-circle.png' %>"/>
