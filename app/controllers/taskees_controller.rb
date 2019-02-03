@@ -1,6 +1,6 @@
-class TasksController < ApplicationController
-  def index
-    @tasks = Task.all
+class TaskeesController < ApplicationController
+	def index
+    @tasks = Task.where.not(user_id: current_user_id)
   end
 
   def show
@@ -17,8 +17,6 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    @task.user_id = current_user.id
-    # render plain: @task.inspect
     if @task.save
       redirect_to root_path
     else
@@ -41,7 +39,7 @@ class TasksController < ApplicationController
   end
 
   private
-  def task_params
-    params.require(:task).permit(:task_name,:user_id, :task_description, :start_time, :price, :negotiable, :location)
+  def taskee_params
+    params.require(:taskee).permit(:task_id, :user_id)
   end
 end

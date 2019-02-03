@@ -31,6 +31,15 @@ ActiveRecord::Schema.define(version: 2019_02_01_085056) do
     t.index ["user_id"], name: "index_reputations_on_user_id"
   end
 
+  create_table "taskees", force: :cascade do |t|
+    t.bigint "task_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_taskees_on_task_id"
+    t.index ["user_id"], name: "index_taskees_on_user_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.bigint "user_id"
     t.text "task_name"
@@ -45,15 +54,6 @@ ActiveRecord::Schema.define(version: 2019_02_01_085056) do
     t.boolean "incomplete", default: false
     t.integer "location"
     t.index ["user_id"], name: "index_tasks_on_user_id"
-  end
-
-  create_table "tasks_users", force: :cascade do |t|
-    t.bigint "task_id"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["task_id"], name: "index_tasks_users_on_task_id"
-    t.index ["user_id"], name: "index_tasks_users_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
