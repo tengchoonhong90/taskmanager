@@ -35,13 +35,18 @@ def promptIfBid(task)
 	end
 end
 
-def formMethod(task)
-	bidded = '<form action="/taskees" accept-charset="UTF-8" data-remote="true" method="put"><input name="utf8" type="hidden" value="✓">'
-	notBidded = '<form action="/taskees" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓">'
+def taskeeId(task)
+	if @taskees.where(:task_id => task.id, :user_id => current_user.id).exists? == true
+		return "/taskees/" + @taskees.select(:id).where(:task_id => task.id).first.id.to_s
+	else
+		return "/taskees/"
+	end
+end
+
+def patchMethod(task)
+	bidded = '<input name="_method" type="hidden" value="patch" />'
 	if @taskees.where(:task_id => task.id, :user_id => current_user.id).exists? == true
 		return bidded.html_safe 
-	else
-		return notbidded.html_safe 
 	end
 end
 
@@ -113,7 +118,10 @@ end
 						On: <%= task.created_at %>
 					</p>
 					<%= promptIfBid(task) %> 
-					<%= form_with model: @taskee do |form| %>
+					
+					<form action=<%= taskeeId(task) %> accept-charset="UTF-8" data-remote="true" method="post">
+						<%= patchMethod(task) %>
+						<input name="utf8" type="hidden" value="✓">
 						<input type="hidden" name="taskee[task_id]" id="taskee_task_id" value=<%= task.id %>>
 						<input 
 							placeholder=<%=showBid(task) 
@@ -123,8 +131,7 @@ end
 							name="taskee[bid]" 
 							id="taskee_bid"> 
 						<%= buttonIfBid(task) %>
-
-					<% end %>
+					</form>
 				</div>
 			</div>
 	  <% end %>

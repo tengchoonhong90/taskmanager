@@ -5,7 +5,7 @@ class TaskeesController < ApplicationController
   end
 
   def show
-    @task = Task.find(params[:id])
+    @taskee = Taskee.find(params[:id])
   end
 
   def new
@@ -13,7 +13,7 @@ class TaskeesController < ApplicationController
   end
 
   def edit
-    @task = Task.find(params[:id])
+    @task = Taskee.find(params[:id])
   end
 
   def create
@@ -35,7 +35,7 @@ class TaskeesController < ApplicationController
   end
 
   def destroy
-    @task = Task.find(params[:id])
+    @task = Taskee.find(params[:id])
     @task.destroy
 
     redirect_to root_path
