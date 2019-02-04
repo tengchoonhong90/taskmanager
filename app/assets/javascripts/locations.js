@@ -15,6 +15,14 @@ function currentMap(lat, lng) {
   });
 }
 
+
+
+
+
+
+
+
+
 //function for updating location
 function updateMap() {
   var lat = document.getElementById('location_latitude').value;
@@ -33,12 +41,7 @@ function updateMap() {
     zoom: 14
   };
   var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-  var marker = new google.maps.Marker({
-    position: myCoords,
-    animation: google.maps.Animation.DROP,
-    map: map,
-    draggable: true
-  });
+  var marker;
 
   // Create the search box and link it to the UI element.
   var input = document.getElementById('pac-input');
@@ -73,21 +76,6 @@ function updateMap() {
         console.log("Returned place contains no geometry");
         return;
       }
-      var icon = {
-        url: place.icon,
-        size: new google.maps.Size(71, 71),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(25, 25)
-      };
-
-      // Create a marker for each place.
-      markers.push(new google.maps.Marker({
-        map: map,
-        icon: icon,
-        title: place.name,
-        position: place.geometry.location
-      }));
 
       if (place.geometry.viewport) {
         // Only geocodes have viewport.
@@ -98,7 +86,25 @@ function updateMap() {
     });
     map.fitBounds(bounds);
   });
-  
+
+  //add click event for marker
+  google.maps.event.addListener(map, 'click', function(event) {
+    placeMarker(event.latLng);
+  });
+
+  function placeMarker(location) {
+    if ( marker ) {
+      marker.setPosition(location);
+    } else {
+      marker = new google.maps.Marker({
+        position: location,
+        animation: google.maps.Animation.DROP,
+        map: map,
+        draggable: true
+      });
+    }
+  }
+
   // refresh marker position and recenter map on marker
   function refreshMarker(){
     var lat = document.getElementById('location_latitude').value;
@@ -122,17 +128,4 @@ function updateMap() {
   marker.addListener('dragend', function() {
     map.panTo(marker.getPosition());   
   });
-
-  google.maps.event.addListener(map, 'click', function(event) {
-    placeMarker(event.latLng);
-});
-
-  function placeMarker(location) {
-    var marker = new google.maps.Marker({
-      position: location,
-      animation: google.maps.Animation.DROP,
-      map: map,
-      draggable: true
-    });
-  }
 }
