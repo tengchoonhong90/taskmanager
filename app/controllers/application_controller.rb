@@ -75,9 +75,9 @@ class ApplicationController < ActionController::Base
 
 	def showBid(task)
 		if @taskees.where(:task_id => task.id, :user_id => current_user.id).exists? == true
-			return '$' + @taskees.select(:bid).where(:task_id => task.id, :user_id => current_user.id).first.bid.to_s
+			return @taskees.select(:bid).where(:task_id => task.id, :user_id => current_user.id).first.bid
 		else 
-			return 'Minimum: $0'
+			return @tasks.select(:price).where(:id => task.id).first.price
 		end
 	end
 
@@ -108,5 +108,6 @@ class ApplicationController < ActionController::Base
 			end
 		end
 	end
+
 
 end

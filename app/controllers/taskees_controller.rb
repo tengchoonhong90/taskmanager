@@ -30,7 +30,7 @@ class TaskeesController < ApplicationController
     @taskee = Taskee.new(taskee_params)
     @taskee.user_id = current_user.id
     if @taskee.save
-      redirect_to taskees_path
+      redirect_to taskee_path(@taskee)
     else
       render 'new'
     end
