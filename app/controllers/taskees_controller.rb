@@ -1,4 +1,7 @@
 class TaskeesController < ApplicationController
+
+  helper_method :showStatus, :showNego, :promptIfBidded, :taskeeId, :patchMethod, :showBid, :bidType, :buttonIfBid, :showNavBar
+
 	def index
     @tasks = Task.where.not(user_id: current_user.id)
     @taskees = Taskee.all
