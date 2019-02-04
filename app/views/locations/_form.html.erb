@@ -1,7 +1,8 @@
 <% provide :head_tags do %>
 <meta name='turbolinks-visit-control' content='reload'>
+<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyATiUC-CYabYFtmwdk5Aw88h1PAyTP8zGI&libraries=places'></script>
 <script>
-	document.addEventListener("DOMContentLoaded", initMap2);
+	document.addEventListener("DOMContentLoaded", updateMap);
 </script>
 <% end %>
 
@@ -37,7 +38,8 @@
 </div>
 
 <p>
-	<div id="map2"></div>
+	<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+	<div id="map"></div>
 </p>
 
 <div class="actions">
