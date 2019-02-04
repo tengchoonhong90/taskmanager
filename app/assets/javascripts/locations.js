@@ -15,16 +15,8 @@ function currentMap(lat, lng) {
   });
 }
 
-
-
-
-
-
-
-
-
 //function for updating location
-function updateMap() {
+function markMap() {
   var lat = document.getElementById('location_latitude').value;
   var lng = document.getElementById('location_longitude').value;
     
@@ -46,7 +38,8 @@ function updateMap() {
   // Create the search box and link it to the UI element.
   var input = document.getElementById('pac-input');
   var searchBox = new google.maps.places.SearchBox(input);
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+  // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input); (pushes searchbox inside map)
 
   // Bias the SearchBox results towards current map's viewport.
   map.addListener('bounds_changed', function() {
@@ -90,6 +83,20 @@ function updateMap() {
   //add click event for marker
   google.maps.event.addListener(map, 'click', function(event) {
     placeMarker(event.latLng);
+    refreshMarker();
+    marker.addListener('drag', function() {
+      latlng = marker.getPosition();
+      newlat=(Math.round(latlng.lat()*1000000))/1000000;
+      newlng=(Math.round(latlng.lng()*1000000))/1000000;
+      document.getElementById('location_latitude').value = newlat;
+      document.getElementById('location_longitude').value = newlng;
+    });
+
+    // When drag ends, center (pan) the map on the marker position
+    marker.addListener('dragend', function() {
+      map.panTo(marker.getPosition());   
+    });
+    
   });
 
   function placeMarker(location) {
@@ -105,27 +112,29 @@ function updateMap() {
     }
   }
 
-  // refresh marker position and recenter map on marker
-  function refreshMarker(){
-    var lat = document.getElementById('location_latitude').value;
-    var lng = document.getElementById('location_longitude').value;
-    var myCoords = new google.maps.LatLng(lat, lng);
-    marker.setPosition(myCoords);
-    map.setCenter(marker.getPosition());   
+  //refresh marker position and recenter map on marker
+  function refreshMarker() {
+    var lat = marker.getPosition().lat();
+    var lng = marker.getPosition().lng();
+    document.getElementById('location_latitude').value = lat;
+    document.getElementById('location_longitude').value = lng;
+    map.setCenter(marker.getPosition());
   }
-  // when input values change call refreshMarker
-  document.getElementById('location_latitude').onchange = refreshMarker;
-  document.getElementById('location_longitude').onchange = refreshMarker;
-  // when marker is dragged update input values
-  marker.addListener('drag', function() {
-    latlng = marker.getPosition();
-    newlat=(Math.round(latlng.lat()*1000000))/1000000;
-    newlng=(Math.round(latlng.lng()*1000000))/1000000;
-    document.getElementById('location_latitude').value = newlat;
-    document.getElementById('location_longitude').value = newlng;
-  });
-  // When drag ends, center (pan) the map on the marker position
-  marker.addListener('dragend', function() {
-    map.panTo(marker.getPosition());   
-  });
+
+  // // refresh marker position and recenter map on marker
+  // function refreshMarker(){
+  //   var lat = document.getElementById('location_latitude').value;
+  //   var lng = document.getElementById('location_longitude').value;
+  //   var myCoords = new google.maps.LatLng(lat, lng);
+  //   marker.setPosition(myCoords);
+  //   map.setCenter(marker.getPosition());   
+  // }
+
+  // // when input values change call refreshMarker
+  // document.getElementById('location_latitude').onchange = refreshMarker;
+  // document.getElementById('location_longitude').onchange = refreshMarker;
+
+
+
+
 }
