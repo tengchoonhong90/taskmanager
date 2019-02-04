@@ -1,33 +1,4 @@
-<% if user_signed_in? %>
-<%= render template: "components/navbarLoggedIn"%>
-<% else %>
-<%= render template: "components/navbarNewUser"%>
-<% end %>
-
-<% 
-
-def numberInterested(task)
-	return @taskees.where(:task_id => task.id).length
-end
-
-def showStatus(task)
-	if task.confirmed == false && task.completed == false && task.incomplete==false
-		return 'circles/open-circle.png'
-	elsif task.confirmed == true && task.completed == false && task.incomplete==false
-		return 'circles/closed-circle.png'
-	elsif task.confirmed == true && task.completed == true && task.incomplete==false
-		return 'circles/smily-circle.png'
-	else
-		return 'circles/closed-circle-red.png'
-	end
-end
-
-def showNego(status)
-	if status == true
-		return '(Price Negotiable)'
-	end
-end
-%>
+<%= showNavBar %>
 
 <div>
 <div class="mainCenter">

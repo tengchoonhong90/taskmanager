@@ -5,11 +5,7 @@
 </script>
 <% end %>
 
-<% if user_signed_in? %>
-  <%= render template: "components/navbarLoggedIn"%>
-<% else %>
-  <%= render template: "components/navbarNewUser"%>
-<% end %>
+<%= showNavBar %>
 
 <div class="mt-3">
   <div class="col-6 mainCenter">

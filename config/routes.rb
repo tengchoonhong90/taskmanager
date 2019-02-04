@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 	get '/new/taskees' => 'taskees#new', as: 'new_taskee'
 	get '/find/taskees' => 'taskees#find'
 	post '/taskees' => 'taskees#create'
-	get '/taskees/:id' => 'taskees#show' , as: 'taskee'
+	get '/taskees/:id' => 'taskees#index' , as: 'taskee'
 	get '/taskees/:id/edit' => 'taskees#edit', as: 'edit_taskee'
 	patch '/taskees/:id' => 'taskees#update'
 	delete '/taskees/:id' => 'taskees#destroy'

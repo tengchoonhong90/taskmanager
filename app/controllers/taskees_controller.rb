@@ -1,12 +1,22 @@
 class TaskeesController < ApplicationController
+
+  helper_method :showStatus, :showNego, :promptIfBidded, :taskeeId, :changeFormMethod, :showBid, :bidType, :buttonIfBid, :showNavBar
+
 	def index
-    @tasks = Task.where.not(user_id: current_user.id)
-    @taskees = Taskee.all
+
+    if params.has_key?(:id)
+      @taskees = Taskee.where(id: params[:id] )
+      @tasks = Task.where(id: @taskees.first.task_id)
+    else
+      @tasks = Task.where.not(user_id: current_user.id)
+      @taskees = Taskee.all
+    end
+    
   end
 
-  def show
-    @taskee = Taskee.find(params[:id])
-  end
+  # def show
+  #   @taskee = Taskee.find(params[:id])
+  # end
 
   def new
 
@@ -20,7 +30,7 @@ class TaskeesController < ApplicationController
     @taskee = Taskee.new(taskee_params)
     @taskee.user_id = current_user.id
     if @taskee.save
-      redirect_to root_path
+      redirect_to taskee_path(@taskee)
     else
       render 'new'
     end
@@ -29,16 +39,15 @@ class TaskeesController < ApplicationController
   def update
     @taskee = Taskee.find(params[:id])
     @taskee.user_id = current_user.id
-    byebug
     @taskee.update(taskee_params)
-    redirect_to taskees_path
+    redirect_to taskee_path
   end
 
   def destroy
-    @task = Taskee.find(params[:id])
-    @task.destroy
+    @taskee = Taskee.find(params[:id])
+    @taskee.destroy
 
-    redirect_to root_path
+    redirect_to taskees_path
   end
 
   private
