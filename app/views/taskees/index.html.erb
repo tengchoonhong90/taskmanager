@@ -1,0 +1,157 @@
+<% if user_signed_in? %>
+<%= render template: "components/navbarLoggedIn"%>
+<% else %>
+<%= render template: "components/navbarNewUser"%>
+<% end %>
+
+<% 
+def showStatus(task)
+	if task.confirmed == false && task.completed == false && task.incomplete==false
+		return 'circles/open-circle.png'
+	elsif task.confirmed == true && task.completed == false && task.incomplete==false
+		return 'circles/closed-circle.png'
+	elsif task.confirmed == true && task.completed == true && task.incomplete==false
+		return 'circles/smily-circle.png'
+	else
+		return 'circles/closed-circle-red.png'
+	end
+end
+
+def showNego(status)
+	if status == true
+		return '(Price Negotiable)'
+	end
+end
+
+def promptIfBid(task) 
+	bidded = '<strong class=" alert alert-warning d-inline-block">You have already bidded</strong>'
+	indicated = '<strong class=" alert alert-warning d-inline-block">You have indicated interest.</strong>'
+	if @taskees.where(:task_id => task.id, :user_id => current_user.id).exists? == true
+		if task.negotiable != true
+			return indicated.html_safe
+		else
+			return bidded.html_safe
+		end
+	end
+end
+
+def taskeeId(task)
+	if @taskees.where(:task_id => task.id, :user_id => current_user.id).exists? == true
+		return "/taskees/" + @taskees.select(:id).where(:task_id => task.id).first.id.to_s
+	else
+		return "/taskees/"
+	end
+end
+
+def patchMethod(task)
+	bidded = '<input name="_method" type="hidden" value="patch" />'
+	if @taskees.where(:task_id => task.id, :user_id => current_user.id).exists? == true
+		return bidded.html_safe 
+	end
+end
+
+def showBid(task)
+	if @taskees.where(:task_id => task.id, :user_id => current_user.id).exists? == true
+		return '$' + @taskees.select(:bid).where(:task_id => task.id, :user_id => current_user.id).first.bid.to_s
+	else 
+		return 'Minimum: $0'
+	end
+end
+
+def bidType(task)
+	if task.negotiable == true
+		return "number"
+	else
+		return "hidden"
+	end
+end
+
+def buttonIfBid(task) 
+	indicatedForNotNegotiable = '<input type="submit" name="commit" value="Undo Indication" data-disable-with="Save Task" class="btn btn-success logoFont">'
+	notNegotiable = '<input type="submit" name="commit" value="Indicate Interest" data-disable-with="Save Task" class="btn btn-success logoFont">'
+	bidded = '<input type="submit" name="commit" value="Change Bid" data-disable-with="Save Task" class="btn btn-success logoFont">'
+	notBidded = '<input type="submit" name="commit" value="Bid for Task" data-disable-with="Save Task" class="btn btn-success logoFont">'
+	if task.negotiable != true
+		if @taskees.where(:task_id => task.id, :user_id => current_user.id).exists? == true
+			return indicatedForNotNegotiable.html_safe
+		else
+			return notNegotiable.html_safe
+		end
+	else
+		if @taskees.where(:task_id => task.id, :user_id => current_user.id).exists? == true
+			return bidded.html_safe
+		else
+			return notBidded.html_safe
+		end
+	end
+end
+
+%>
+
+<div>
+<div class="mainCenter">
+
+	<h1 class="logoFont">Here are the available tasks.</h1>
+
+	<div>
+		<% @tasks.each do |task| %>
+			<div class="card d-inline-block align-top m-3" style="width: 20rem;">
+				<div class="card-body">
+					<img 
+						src="<%= image_url showStatus(task) %>" 
+						class="position-relative float-right"
+					/>
+					<h5 class="card-title">
+						<%= task.task_name %>
+					</h5>
+					<h5 class="card-text">
+						<%= number_to_currency(task.price) %>
+						<%= showNego(task.negotiable) %>
+					</h5>
+					<h5 class="card-title">Postal Code: <%= task.location %></h5>
+					<p class="card-text">Start Time: <%= task.start_time %></p>
+					<h6 class="card-subtitle mb-2 text-muted innerDesc"> <%= task.task_description %></h6>
+					<p class="card-text">
+						Posted by: <strong><%= task.user.username %></strong>
+					</p>
+					<p class="card-text">
+						On: <%= task.created_at %>
+					</p>
+					<%= promptIfBid(task) %> 
+					
+					<form action=<%= taskeeId(task) %> accept-charset="UTF-8" data-remote="true" method="post">
+						<%= patchMethod(task) %>
+						<input name="utf8" type="hidden" value="✓">
+						<input type="hidden" name="taskee[task_id]" id="taskee_task_id" value=<%= task.id %>>
+						<input 
+							placeholder=<%=showBid(task) 
+							%> 
+							class="form-control col-6 d-inline-block" 
+							type=<%=bidType(task)%> 
+							name="taskee[bid]" 
+							id="taskee_bid"> 
+						<%= buttonIfBid(task) %>
+					</form>
+				</div>
+			</div>
+	  <% end %>
+	</div>
+	<br/>
+</div>
+</div>
+
+<p>
+	<img src="<%= image_url 'circles/open-circle.png' %>"/>
+	This icon means the task is open for taskees.
+</p>
+<p>
+	<img src="<%= image_url 'circles/closed-circle.png' %>"/>
+	This icon means the tasker has selected the taskee.</p>
+<p>
+	<img src="<%= image_url 'circles/smiley-circle.png' %>"/>
+	This icon means that the job is done.
+</p>
+<p>
+	<img src="<%= image_url 'circles/closed-circle-red.png' %>"/>
+	This icon means that the job is incomplete, for some reason.
+</p>
