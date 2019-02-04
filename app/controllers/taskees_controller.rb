@@ -3,13 +3,20 @@ class TaskeesController < ApplicationController
   helper_method :showStatus, :showNego, :promptIfBidded, :taskeeId, :patchMethod, :showBid, :bidType, :buttonIfBid, :showNavBar
 
 	def index
-    @tasks = Task.where.not(user_id: current_user.id)
-    @taskees = Taskee.all
+
+    if params.has_key?(:id)
+      @taskees = Taskee.where(id: params[:id] )
+      @tasks = Task.where(id: @taskees.first.task_id)
+    else
+      @tasks = Task.where.not(user_id: current_user.id)
+      @taskees = Taskee.all
+    end
+    
   end
 
-  def show
-    @taskee = Taskee.find(params[:id])
-  end
+  # def show
+  #   @taskee = Taskee.find(params[:id])
+  # end
 
   def new
 
@@ -32,9 +39,8 @@ class TaskeesController < ApplicationController
   def update
     @taskee = Taskee.find(params[:id])
     @taskee.user_id = current_user.id
-    byebug
     @taskee.update(taskee_params)
-    redirect_to taskees_path
+    redirect_to taskee_path
   end
 
   def destroy
