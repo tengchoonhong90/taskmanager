@@ -61,10 +61,15 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
-	def patchMethod(task)
-		bidded = '<input name="_method" type="hidden" value="patch" />'
+	def changeFormMethod(task)
+		newBid = '<input name="_method" type="hidden" value="patch" />'
+		undoInterest = '<input name="_method" type="hidden" value="delete" />'
 		if @taskees.where(:task_id => task.id, :user_id => current_user.id).exists? == true
-			return bidded.html_safe 
+			if task.negotiable == true
+				return newBid.html_safe 
+			else
+				return undoInterest.html_safe
+			end
 		end
 	end
 

@@ -1,6 +1,6 @@
 class TaskeesController < ApplicationController
 
-  helper_method :showStatus, :showNego, :promptIfBidded, :taskeeId, :patchMethod, :showBid, :bidType, :buttonIfBid, :showNavBar
+  helper_method :showStatus, :showNego, :promptIfBidded, :taskeeId, :changeFormMethod, :showBid, :bidType, :buttonIfBid, :showNavBar
 
 	def index
 
@@ -30,7 +30,7 @@ class TaskeesController < ApplicationController
     @taskee = Taskee.new(taskee_params)
     @taskee.user_id = current_user.id
     if @taskee.save
-      redirect_to root_path
+      redirect_to taskees_path
     else
       render 'new'
     end
@@ -44,10 +44,10 @@ class TaskeesController < ApplicationController
   end
 
   def destroy
-    @task = Taskee.find(params[:id])
-    @task.destroy
+    @taskee = Taskee.find(params[:id])
+    @taskee.destroy
 
-    redirect_to root_path
+    redirect_to taskees_path
   end
 
   private
