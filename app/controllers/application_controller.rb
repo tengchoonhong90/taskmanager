@@ -91,6 +91,15 @@ class ApplicationController < ActionController::Base
 		return task.negotiable ? "number" : "hidden"
 	end
 
+	def showUndoBid(task)
+		userHasBidded = @taskees.where(:task_id => task.id, :user_id => current_user.id)
+		if task.negotiable != true 
+			return "hidden" 
+		elsif userHasBidded.exists? != true
+			return "hidden"
+		end
+	end
+
 	def buttonIfBid(task) 
 
 		indicatedForNotNegotiable = '<input type="submit" name="commit" value="Undo Indication" data-disable-with="Save Task" class="btn btn-success logoFont">'
@@ -101,9 +110,17 @@ class ApplicationController < ActionController::Base
 		userHasBidded = @taskees.where(:task_id => task.id, :user_id => current_user.id)
 
 		if task.negotiable === true
-			return userHasBidded.exists ? bidded.html_safe : notBidded.html_safe
+			if @taskees.where(:task_id => task.id, :user_id => current_user.id).exists? == true
+				return bidded.html_safe
+			else
+				return notBidded.html_safe
+			end
 		else
-			return userHasBidded.exists ? indicatedForNotNegotiable.html_safe : notNegotiable.html_safe
+			if userHasBidded.exists? === true
+				return indicatedForNotNegotiable.html_safe
+			else
+				return notNegotiable.html_safe
+			end
 		end
 
 	end

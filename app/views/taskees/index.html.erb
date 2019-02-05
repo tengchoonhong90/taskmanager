@@ -44,7 +44,17 @@
 							name="taskee[bid]" 
 							id="taskee_bid"> 
 						<%= buttonIfBid(task) %>
+						<a 
+							class="btn btn-warning logoFont"
+							rel="nofollow" 
+							data-method="delete" 
+							<%=showUndoBid(task)%>
+							href=<%= taskeeId(task) %> 
+						>
+						Undo Bid
+						</a>
 					</form>
+					
 				</div>
 			</div>
 	  	<% end %>
