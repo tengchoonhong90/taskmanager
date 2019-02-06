@@ -11,6 +11,7 @@ class TasksController < ApplicationController
 
   def show
     @task = Task.find(params[:id])
+    @taskees = Taskee.where(:task_id => params[:id])
   end
 
   def new
@@ -43,7 +44,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.destroy
 
-    redirect_to root_path
+    redirect_to tasks_path
   end
 
   private
