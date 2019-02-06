@@ -12,6 +12,7 @@ class TasksController < ApplicationController
   def show
     @task = Task.find(params[:id])
     @taskees = Taskee.where(:task_id => params[:id])
+    # byebug
   end
 
   def new
