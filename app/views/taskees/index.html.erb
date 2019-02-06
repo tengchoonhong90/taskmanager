@@ -32,7 +32,7 @@
 					<%= promptIfBidded(task) %> 
 					
 					<form action=<%= taskeeId(task) %> accept-charset="UTF-8" data-remote="true" method="post">
-						<%= changeFormMethod(task) %>
+						<%= changeFormMethodOnBid(task) %>
 						<input name="utf8" type="hidden" value="✓">
 						<input type="hidden" name="taskee[task_id]" id="taskee_task_id" value=<%= task.id %>>
 						<input 

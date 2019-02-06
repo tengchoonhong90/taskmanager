@@ -87,7 +87,7 @@ class ApplicationController < ActionController::Base
 
 	end
 
-	def changeFormMethod(task)
+	def changeFormMethodOnBid(task)
 
 		newBid = '<input name="_method" type="hidden" value="patch" />'
 		undoInterest = '<input name="_method" type="hidden" value="delete" />'
@@ -96,6 +96,14 @@ class ApplicationController < ActionController::Base
 			return task.negotiable === true ? newBid.html_safe : undoInterest.html_safe
 		end
 
+	end
+
+	def changeValueOnSelectTaskee(status)
+		return status === true ? false : true
+	end
+
+	def changeButtonOnSelectTaskee(status)
+		return status === true ? "Un-select" : "Select"
 	end
 
 	def showBid(task)
