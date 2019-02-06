@@ -5,9 +5,9 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css?family=Cherry+Swash:700" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'https://maps.googleapis.com/maps/api/js?key=AIzaSyB18AMPrvGB6B5nMT3aFDT5hvXcdYr8D8o' %>
+    <%= javascript_include_tag 'https://maps.googleapis.com/maps/api/js?key=#{Rails.application.credentials.google_maps_api_key}libraries=places&callback=initAutocomplete' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= yield(:head_tags) %>
   </head>
@@ -15,10 +15,10 @@
   <body>
   	<% if notice %>
   <p class="alert alert-success"><%= notice %></p>
-<% end %>
-<% if alert %>
-  <p class="alert alert-danger"><%= alert %></p>
-<% end %>
+    <% end %>
+    <% if alert %>
+      <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
     <%= yield %>
   </body>
 </html>

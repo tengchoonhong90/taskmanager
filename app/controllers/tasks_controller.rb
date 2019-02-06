@@ -1,6 +1,12 @@
 class TasksController < ApplicationController
+
+  helper_method :showStatus, :showNego, :numberInterested, :showNavBar
+  
   def index
-    @tasks = Task.all
+    if user_signed_in?
+      @tasks = Task.where(user_id: current_user.id)
+      @taskees = Taskee.all
+    end
   end
 
   def show
@@ -17,9 +23,13 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.user_id = current_user.id
     # render plain: @task.inspect
-    @task.save
-    redirect_to root_path
+    if @task.save
+      redirect_to root_path
+    else
+      render 'new'
+    end
   end
 
   def update
@@ -38,6 +48,6 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:task_name, :task_description, :start_time, :price, :negotiable, :location)
+    params.require(:task).permit(:task_name,:user_id, :task_description, :start_time, :price, :negotiable, :location)
   end
 end

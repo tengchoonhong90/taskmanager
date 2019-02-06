@@ -1,7 +1,8 @@
 <% provide :head_tags do %>
 <meta name='turbolinks-visit-control' content='reload'>
+<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyATiUC-CYabYFtmwdk5Aw88h1PAyTP8zGI&libraries=places'></script>
 <script>
-	document.addEventListener("DOMContentLoaded", initMap2);
+	document.addEventListener("DOMContentLoaded", markMap);
 </script>
 <% end %>
 
@@ -36,8 +37,10 @@
 	<%= form.text_field :longitude %>
 </div>
 
+	<input id="pac-input" class="controls" type="text" placeholder="Search Address">
+
 <p>
-	<div id="map2"></div>
+	<div id="map"></div>
 </p>
 
 <div class="actions">
