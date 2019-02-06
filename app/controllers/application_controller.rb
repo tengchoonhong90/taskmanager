@@ -64,6 +64,19 @@ class ApplicationController < ActionController::Base
 
 	end
 
+	def editTaskeeId(task)
+
+		checkTaskeeId = @taskees.where(:task_id => task.id, :user_id => current_user.id)
+		getTaskeeId = @taskees.select(:id).where(:task_id => task.id)
+
+		if checkTaskeeId.exists? === true
+			return "/taskees/" + getTaskeeId.first.id.to_s
+		else
+			return "/taskees/"
+		end
+
+	end
+
 	def changeFormMethod(task)
 
 		newBid = '<input name="_method" type="hidden" value="patch" />'
