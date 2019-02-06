@@ -4,6 +4,16 @@ class ApplicationController < ActionController::Base
 
 	protected
 
+	def highlightCurrentPageOnNavBar(path)
+		highlighted = '<li class="nav-item btn-success">'
+		notHighlighted = '<li class="nav-item">'
+		if request.url.include?(path)
+			return highlighted.html_safe
+		else 
+			return notHighlighted.html_safe
+		end
+	end
+
 	def configure_permitted_parameters
 		devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :username, :phone])
 		devise_parameter_sanitizer.permit(:account_update, keys: [:name, :username, :phone])
