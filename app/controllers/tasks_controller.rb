@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
 
-  helper_method :showStatus, :showNego, :numberInterested, :showNavBar, :highlightCurrentPageOnNavBar, :taskeeId, :changeValueOnSelectTaskee, :changeButtonOnSelectTaskee
+  helper_method :showStatus, :showNego, :numberInterested, :showNavBar, :highlightCurrentPageOnNavBar, :taskeeId, :changeValueOnSelectTaskee, :changeButtonOnSelectTaskee, :changeValueOnConfirmTask, :changeButtonOnConfirmTask
 
   def index
     if user_signed_in?
@@ -38,7 +38,8 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     @task.update(task_params)
-    redirect_to tasks_path
+    # redirect_to tasks_path
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy

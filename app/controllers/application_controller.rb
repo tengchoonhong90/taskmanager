@@ -33,9 +33,11 @@ class ApplicationController < ActionController::Base
 		elsif task.confirmed === true && task.completed === false && task.incomplete === false
 			return 'circles/closed-circle.png'
 		elsif task.confirmed === true && task.completed === true && task.incomplete === false
-			return 'circles/smily-circle.png'
-		else
+			return 'circles/smiley-circle.png'
+		elsif task.confirmed === true && task.completed === false && task.incomplete === true
 			return 'circles/closed-circle-red.png'
+		else
+			return 'circles/open-circle.png'
 		end
 	end
 
@@ -104,6 +106,14 @@ class ApplicationController < ActionController::Base
 
 	def changeButtonOnSelectTaskee(status)
 		return status === true ? "Un-select" : "Select"
+	end
+
+	def changeValueOnConfirmTask(status)
+		return status === true ? false : true
+	end
+
+	def changeButtonOnConfirmTask(status)
+		return status === true ? "Un-Confirm" : "Confirm"
 	end
 
 	def showBid(task)
