@@ -1,3 +1,5 @@
+<div id="homepage">
+
 <% if user_signed_in? %>
 <%= render template: "components/navbarLoggedIn"%>
 <% else %>
@@ -21,3 +23,5 @@
 	<img src="<%= image_url 'circles/closed-circle-red.png' %>"/>
 	This icon means that the job is incomplete, for some reason.
 </p>
+
+</div>
