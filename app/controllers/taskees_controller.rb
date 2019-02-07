@@ -1,6 +1,6 @@
 class TaskeesController < ApplicationController
 
-  helper_method :showStatus, :showNego, :promptIfBidded, :taskeeId, :changeFormMethod, :showBid, :bidType, :buttonIfBid, :showNavBar
+  helper_method :showStatus, :showNego, :promptIfBidded, :taskeeId, :changeFormMethodOnBid, :showBid, :bidType, :buttonIfBid, :showNavBar, :showUndoBid, :highlightCurrentPageOnNavBar, :changeValueOnSelectTaskee
 
 	def index
 
@@ -38,9 +38,9 @@ class TaskeesController < ApplicationController
 
   def update
     @taskee = Taskee.find(params[:id])
-    @taskee.user_id = current_user.id
+    # @taskee.user_id = current_user.id
     @taskee.update(taskee_params)
-    redirect_to taskee_path
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy
@@ -52,6 +52,6 @@ class TaskeesController < ApplicationController
 
   private
   def taskee_params
-    params.require(:taskee).permit(:task_id, :user_id, :bid)
+    params.require(:taskee).permit(:task_id, :user_id, :bid, :selected, :done)
   end
 end

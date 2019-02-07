@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
 
-  helper_method :showStatus, :showNego, :numberInterested, :showNavBar
-  
+  helper_method :showStatus, :showNego, :numberInterested, :showNavBar, :highlightCurrentPageOnNavBar, :taskeeId, :changeValueOnSelectTaskee, :changeButtonOnSelectTaskee, :changeValueOnConfirmTask, :changeButtonOnConfirmTask, :showSelectedTaskeeCard
+
   def index
     if user_signed_in?
       @tasks = Task.where(user_id: current_user.id)
@@ -11,6 +11,8 @@ class TasksController < ApplicationController
 
   def show
     @task = Task.find(params[:id])
+    @taskees = Taskee.where(:task_id => params[:id])
+    # byebug
   end
 
   def new
@@ -36,18 +38,19 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     @task.update(task_params)
-    redirect_to @tasks
+    # redirect_to tasks_path
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
 
-    redirect_to root_path
+    redirect_to tasks_path
   end
 
   private
   def task_params
-    params.require(:task).permit(:task_name,:user_id, :task_description, :start_time, :price, :negotiable, :location)
+    params.require(:task).permit(:task_name,:user_id, :task_description, :start_time, :price, :negotiable, :location, :confirmed, :completed, :incomplete)
   end
 end
