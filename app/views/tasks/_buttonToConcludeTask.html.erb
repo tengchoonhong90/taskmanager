@@ -7,5 +7,27 @@
 		id= <%= setId  %>
 		value="true"
 	>
-	<%= setButton %>
+	<%= 
+		completedButton = '
+            <input 
+              type="submit" 
+              name="commit" 
+              value="Completed"
+              data-disable-with="Save Task" 
+              class="btn btn-primary logoFont"
+            >'
+        incompleteButton = '
+            <input 
+              type="submit" 
+              name="commit" 
+              value="Incomplete"
+              data-disable-with="Save Task" 
+              class="btn btn-danger logoFont"
+            >'
+        if setButton === "complete"
+        	render html: completedButton.html_safe
+        else
+        	render html: incompleteButton.html_safe
+        end
+	 %>
 </form>

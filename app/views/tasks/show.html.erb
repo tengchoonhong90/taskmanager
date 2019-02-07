@@ -93,32 +93,21 @@ document.addEventListener("DOMContentLoaded", initMap2);
               <br>
               <%= 
                 confirmedTask = @task.confirmed
-                completedButton = '
-                <input 
-                  type="submit" 
-                  name="commit" 
-                  value="Completed"
-                  data-disable-with="Save Task" 
-                  class="btn btn-primary logoFont"
-                >'
-
-                if confirmedTask === true 
-                  render partial: "buttonToConcludeTask", locals: {task: @task, setName: "task[completed]", setId: "task_completed", setButton: completedButton.html_safe }
-                else
+                completedTask = @task.completed
+                incompleteTask = @task.incomplete              
+                if confirmedTask === true && completedTask != true && incompleteTask != true
+                  render partial: "buttonToConcludeTask", locals: {task: @task, setName: "task[completed]", setId: "task_completed", setButton: "complete" }
+                elsif confirmedTask != true
                   render plain: "You have to confirm the task before concluding the task"
+                elsif completedTask === true
+                  render plain: "You have marked the task as completed"
+                elsif incompleteTask === true
+                  render plain: "You have marked the task as incomplete"
                 end
               %>
               <%=
-                incompleteButton = '
-                <input 
-                  type="submit" 
-                  name="commit" 
-                  value="Incomplete"
-                  data-disable-with="Save Task" 
-                  class="btn btn-danger logoFont"
-                >'
-                if confirmedTask === true 
-                  render partial: "buttonToConcludeTask", locals: {task: @task, setName: "task[incomplete]", setId: "task_incomplete", setButton: incompleteButton.html_safe }
+                if confirmedTask === true && incompleteTask != true && completedTask != true
+                  render partial: "buttonToConcludeTask", locals: {task: @task, setName: "task[incomplete]", setId: "task_incomplete", setButton: "incomplete" }
                 end
               %>
           </div>
