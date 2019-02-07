@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", initMap2);
               <strong class=" alert alert-warning d-inline-block">There are <%= numberInterested(@task) %> interested parties.</strong>
               <% @taskees.each do |taskee| %>
                 <div class="card">
-                    <div class="card-body">
+                    <%= showSelectedTaskeeCard(taskee.selected) %>
                       <%= 
                         if @task.negotiable === true
                           render partial: "showBidding", locals: {taskee: taskee}
@@ -70,9 +70,9 @@ document.addEventListener("DOMContentLoaded", initMap2);
                         <input 
                           type="submit" 
                           name="commit" 
-                          value=<%= changeButtonOnSelectTaskee(taskee.selected) %>  
+                          <%= changeButtonOnSelectTaskee(taskee.selected) %>  
                           data-disable-with="Save Task" 
-                          class="btn btn-success logoFont">
+                          >
                       </form>
                     </div>
                 </div>

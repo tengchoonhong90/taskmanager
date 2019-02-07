@@ -100,12 +100,24 @@ class ApplicationController < ActionController::Base
 
 	end
 
+	def showSelectedTaskeeCard(status)
+		selectedBackground = '<div class="card-body bg-light">'
+		normalBackground = '<div class="card-body bg-white" >'
+		return status === true ? selectedBackground.html_safe : normalBackground.html_safe
+	end
+
 	def changeValueOnSelectTaskee(status)
 		return status === true ? false : true
 	end
 
 	def changeButtonOnSelectTaskee(status)
-		return status === true ? "Un-select" : "Select"
+			unselect=	
+				'value="Un-select"  
+				class="btn btn-warning logoFont"'
+			select=
+				'value="Select"  
+				class="btn btn-success logoFont"'
+		return status === true ? unselect.html_safe : select.html_safe
 	end
 
 	def changeValueOnConfirmTask(status)

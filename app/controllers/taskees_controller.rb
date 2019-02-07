@@ -38,7 +38,7 @@ class TaskeesController < ApplicationController
 
   def update
     @taskee = Taskee.find(params[:id])
-    @taskee.user_id = current_user.id
+    # @taskee.user_id = current_user.id
     @taskee.update(taskee_params)
     redirect_back(fallback_location: root_path)
   end
