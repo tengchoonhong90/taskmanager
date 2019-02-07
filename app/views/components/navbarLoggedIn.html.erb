@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 
-  <a class="navbar-brand logoFont" href="/">TaskManager</a>
+  <a class="navbar-brand logoFont text-success" href="/">TaskManager</a>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -8,16 +8,16 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/new/tasks">New Task</a>
+      <%= highlightCurrentPageOnNavBar(new_task_path) %>
+        <a class="nav-link" href="/new">New Task</a>
       </li>
-      <li class="nav-item">
+      <%= highlightCurrentPageOnNavBar(tasks_path) %>
         <a class="nav-link" href="/tasks">Your Tasks</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/taskees">Find Tasks</a>
+      <%= highlightCurrentPageOnNavBar(taskees_path) %>
+        <a class="nav-link" href="/taskees"><strong>Make Money</strong></a>
       </li>
-      <li class="nav-item">
+      <%= highlightCurrentPageOnNavBar(locations_path) %>
         <a class="nav-link" href="/locations">See Map</a>
       </li>
       <li class="nav-item">

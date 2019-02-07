@@ -6,12 +6,12 @@ Rails.application.routes.draw do
 	root 'tasks#index'
 
 	get '/tasks' => 'tasks#index', as: 'tasks'
-	get '/new/tasks' => 'tasks#new', as: 'new_task'
+	get '/new' => 'tasks#new', as: 'new_task'
 	get '/find/tasks' => 'tasks#find'
 	post '/tasks' => 'tasks#create'
 	get '/tasks/:id' => 'tasks#show' , as: 'task'
 	get '/tasks/:id/edit' => 'tasks#edit', as: 'edit_task'
-	patch '/tasks/:id' => 'tasks#update'
+	patch '/tasks/:id/' => 'tasks#update', as: 'update_task'
 	delete '/tasks/:id' => 'tasks#destroy'
 	get '/map' => 'tasks#map'
 
