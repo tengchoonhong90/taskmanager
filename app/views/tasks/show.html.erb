@@ -1,0 +1,132 @@
+<% provide :head_tags do %>
+<meta name='turbolinks-visit-control' content='reload'>
+<script>
+document.addEventListener("DOMContentLoaded", initMap2);
+</script>
+<% end %>
+<%= showNavBar %>
+<div>
+    <div class="mainCenter">
+
+        <h1 class="logoFont">Showing Task: <%= @task.task_name %></h1>
+
+        <%= link_to 'New task', new_task_path %>
+        <%= link_to 'Back', tasks_path %>
+
+        <div class="mainCenter col-10">
+            <% if user_signed_in? %>
+
+            <div class="card d-inline-block align-top m-3 col-4" style="width: 20rem;">
+                <div class="card-body ">
+                    <img
+                      src="<%= image_url showStatus(@task) %>"
+                      class="position-relative float-right"
+                    />
+                    <h5 class="card-title">
+                      <%= @task.task_name %>
+                    </h5>
+                    <h5 class="card-text">
+                      <%= number_to_currency(@task.price) %>
+                      <%= showNego(@task.negotiable) %>
+                    </h5>
+                    <h5 class="card-title">Postal Code: <%= @task.location %></h5>
+                    <p class="card-text">Start Time:
+                        <%= @task.start_time %>
+                    </p>
+                    <h6 class="card-subtitle mb-2 text-muted innerDesc"> <%= @task.task_description %></h6>
+                    <p class="card-text">Created on:
+                        <%= @task.created_at %>
+                    </p>
+                    <%= link_to 'Show', task_path(@task) %>
+                    <%= link_to 'Edit', edit_task_path(@task) %>
+                    <%= link_to 'Destroy', task_path(@task),
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %>
+                </div>
+            </div>
+            <% end %>
+
+            <div class = "col-4 d-inline-block mt-5">
+              <strong class=" alert alert-warning d-inline-block">There are <%= numberInterested(@task) %> interested parties.</strong>
+              <% @taskees.each do |taskee| %>
+                <div class="card">
+                    <%= showSelectedTaskeeCard(taskee.selected) %>
+                      <%= 
+                        if @task.negotiable === true
+                          render partial: "showBidding", locals: {taskee: taskee}
+                        else
+                          render partial: "showIndicating", locals: {taskee: taskee}
+                        end
+                      %>
+                      <form action= <%= "/taskees/"+taskee.id.to_s %> accept-charset="UTF-8" data-remote="true" method="post">
+                        <input name="_method" type="hidden" value="patch" />
+                        <input name="utf8" type="hidden" value="✓">
+                        <input 
+                          type="hidden" 
+                          name="taskee[selected]" 
+                          id="taskee_selected" 
+                          value=<%= changeValueOnSelectTaskee(taskee.selected) %> 
+                        >
+                        <input 
+                          type="submit" 
+                          name="commit" 
+                          <%= changeButtonOnSelectTaskee(taskee.selected) %>  
+                          data-disable-with="Save Task" 
+                          >
+                      </form>
+                    </div>
+                </div>
+              <% end %>
+              <form action= <%= "/tasks/"+@task.id.to_s %> accept-charset="UTF-8" data-remote="true" method="post">
+                <input name="_method" type="hidden" value="patch" />
+                <input name="utf8" type="hidden" value="✓">
+                <input 
+                  type="hidden" 
+                  name="task[confirmed]" 
+                  id="task_confirmed" 
+                  value=<%= changeValueOnConfirmTask(@task.confirmed) %> 
+                >
+                <input 
+                  type="submit" 
+                  name="commit" 
+                  value=<%= changeButtonOnConfirmTask(@task.confirmed) %>  
+                  data-disable-with="Save Task" 
+                  class="btn btn-success logoFont">
+              </form>
+              <form action= <%= "/tasks/"+@task.id.to_s %> accept-charset="UTF-8" data-remote="true" method="post">
+                <input name="_method" type="hidden" value="patch" />
+                <input name="utf8" type="hidden" value="✓">
+                <input 
+                  type="hidden" 
+                  name="task[completed]" 
+                  id="task_completed" 
+                  value="true"
+                >
+                <input 
+                  type="submit" 
+                  name="commit" 
+                  value="Completed" 
+                  data-disable-with="Save Task" 
+                  class="btn btn-primary logoFont">
+              </form>
+              <form action= <%= "/tasks/"+@task.id.to_s %> accept-charset="UTF-8" data-remote="true" method="post">
+                <input name="_method" type="hidden" value="patch" />
+                <input name="utf8" type="hidden" value="✓">
+                <input 
+                  type="hidden" 
+                  name="task[incomplete]" 
+                  id="task_incomplete" 
+                  value="true"
+                >
+                <input 
+                  type="submit" 
+                  name="commit" 
+                  value="Incomplete" 
+                  data-disable-with="Save Task" 
+                  class="btn btn-danger logoFont">
+              </form>
+          </div>
+        </div>
+        <br />
+    </div>
+</div>

@@ -36,7 +36,9 @@ ActiveRecord::Schema.define(version: 2019_02_07_025437) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "bid"
+    t.float "bid"
+    t.boolean "selected", default: false
+    t.boolean "done", default: false
     t.index ["task_id"], name: "index_taskees_on_task_id"
     t.index ["user_id"], name: "index_taskees_on_user_id"
   end
