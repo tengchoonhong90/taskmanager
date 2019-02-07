@@ -1,7 +1,8 @@
 <% provide :head_tags do %>
 <meta name='turbolinks-visit-control' content='reload'>
+<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyATiUC-CYabYFtmwdk5Aw88h1PAyTP8zGI&libraries=places'></script>
 <script>
-	document.addEventListener("DOMContentLoaded", initMap2);
+	document.addEventListener("DOMContentLoaded", markMap);
 </script>
 <% end %>
 
@@ -24,11 +25,18 @@
       </div>
 
       <div class="form-group">
-        <label for="PostalCode">Postal Code:</label>
-        <%= form.text_field :location, class: "form-control", autofocus: true %>
-        <p class="error alert-warning">
-          <%= show_errors(@task, :location) %>
-        </p>
+        <label for="PostalCode">Postal Code:</label><br>
+        <%= form.text_field :location, id: "pac-input", class: "controls", placeholder: "Search Address" %>
+        <br><br>
+        <div class="field">
+          <%= form.label :latitude %>
+          <%= form.text_field :latitude %>
+        </div>
+        <div class="field">
+          <%= form.label :longitude %>
+          <%= form.text_field :longitude %>
+        </div>
+        <div id="map"></div>
       </div>
 
       <div class="form-group">
