@@ -3,7 +3,9 @@
 <div>
 <div class="mainCenter">
 
-	<h1 class="logoFont">Here are the available tasks.</h1>
+	<h1 class="logoFont d-inline-block align-middle" style="margin:0;">Here are the available tasks.</h1>
+
+	<%= render template: "components/infoOnIcons" %>
 
 	<div>
 		<% @tasks.each do |task| %>

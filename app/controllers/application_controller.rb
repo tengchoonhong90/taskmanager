@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 	protected
 
 	def highlightCurrentPageOnNavBar(path)
-		highlighted = '<li class="nav-item btn-success">'
+		highlighted = '<li class="nav-item bg-success text-white font-weight-bold rounded ">'
 		notHighlighted = '<li class="nav-item">'
 		if request.url.include?(path)
 			return highlighted.html_safe

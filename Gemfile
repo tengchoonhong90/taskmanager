@@ -73,3 +73,4 @@ gem "devise", "~> 4.5"
 gem 'validates_timeliness', '~> 5.0.0.alpha3'
 
 gem 'bootstrap-modal-rails'
+
