@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", initMap2);
                       <%= number_to_currency(@task.price) %>
                       <%= showNego(@task.negotiable) %>
                     </h5>
-                    <h5 class="card-title">Postal Code: <%= @task.location %></h5>
+                    <h5 class="card-title">Address: <%= @task.location %></h5>
                     <p class="card-text">Start Time:
                         <%= @task.start_time %>
                     </p>
@@ -77,54 +77,39 @@ document.addEventListener("DOMContentLoaded", initMap2);
                     </div>
                 </div>
               <% end %>
-              <form action= <%= "/tasks/"+@task.id.to_s %> accept-charset="UTF-8" data-remote="true" method="post">
-                <input name="_method" type="hidden" value="patch" />
-                <input name="utf8" type="hidden" value="✓">
-                <input 
-                  type="hidden" 
-                  name="task[confirmed]" 
-                  id="task_confirmed" 
-                  value=<%= changeValueOnConfirmTask(@task.confirmed) %> 
-                >
-                <input 
-                  type="submit" 
-                  name="commit" 
-                  value=<%= changeButtonOnConfirmTask(@task.confirmed) %>  
-                  data-disable-with="Save Task" 
-                  class="btn btn-success logoFont">
-              </form>
-              <form action= <%= "/tasks/"+@task.id.to_s %> accept-charset="UTF-8" data-remote="true" method="post">
-                <input name="_method" type="hidden" value="patch" />
-                <input name="utf8" type="hidden" value="✓">
-                <input 
-                  type="hidden" 
-                  name="task[completed]" 
-                  id="task_completed" 
-                  value="true"
-                >
-                <input 
-                  type="submit" 
-                  name="commit" 
-                  value="Completed" 
-                  data-disable-with="Save Task" 
-                  class="btn btn-primary logoFont">
-              </form>
-              <form action= <%= "/tasks/"+@task.id.to_s %> accept-charset="UTF-8" data-remote="true" method="post">
-                <input name="_method" type="hidden" value="patch" />
-                <input name="utf8" type="hidden" value="✓">
-                <input 
-                  type="hidden" 
-                  name="task[incomplete]" 
-                  id="task_incomplete" 
-                  value="true"
-                >
-                <input 
-                  type="submit" 
-                  name="commit" 
-                  value="Incomplete" 
-                  data-disable-with="Save Task" 
-                  class="btn btn-danger logoFont">
-              </form>
+              <%= 
+                selectedTaskee = @taskees.where(:task_id => @task.id, :selected => true).exists?
+                confirmedTask = @task.confirmed
+                if selectedTaskee === true 
+                  if confirmedTask === true
+                    render html: '<strong class=" alert alert-warning d-inline-block">Task Confirmed</strong>'.html_safe
+                  else
+                    render partial: "buttonToConfirmTaskee", locals: {task: @task}
+                  end
+                else
+                  render plain: "You have to select at least one user before confirming the task"
+                end
+              %>
+              <br>
+              <%= 
+                confirmedTask = @task.confirmed
+                completedTask = @task.completed
+                incompleteTask = @task.incomplete              
+                if confirmedTask === true && completedTask != true && incompleteTask != true
+                  render partial: "buttonToConcludeTask", locals: {task: @task, setName: "task[completed]", setId: "task_completed", setButton: "complete" }
+                elsif confirmedTask != true
+                  render plain: "You have to confirm the task before concluding the task"
+                elsif completedTask === true
+                  render plain: "You have marked the task as completed"
+                elsif incompleteTask === true
+                  render plain: "You have marked the task as incomplete"
+                end
+              %>
+              <%=
+                if confirmedTask === true && incompleteTask != true && completedTask != true
+                  render partial: "buttonToConcludeTask", locals: {task: @task, setName: "task[incomplete]", setId: "task_incomplete", setButton: "incomplete" }
+                end
+              %>
           </div>
         </div>
         <br />

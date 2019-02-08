@@ -163,7 +163,7 @@ class ApplicationController < ActionController::Base
 		userHasBidded = @taskees.where(:task_id => task.id, :user_id => current_user.id)
 
 		if task.negotiable === true
-			if @taskees.where(:task_id => task.id, :user_id => current_user.id).exists? == true
+			if @taskees.where(:task_id => task.id, :user_id => current_user.id).exists? === true
 				return bidded.html_safe
 			else
 				return notBidded.html_safe
