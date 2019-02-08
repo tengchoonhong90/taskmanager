@@ -59,7 +59,7 @@
 .index-foo{
 
 	#banner1{
-		height: 450px;
+		height: 780px;
 		// border:10px solid rgb(255,234,204);
 		border-right-width:5px;
 		margin: 0px;
@@ -87,7 +87,7 @@
 		// padding-top:25px;
 	}
 		#banner2{
-		height: 450px;
+		height: 780px;
 		// border:10px solid rgb(255,234,204);
 		border-left-width: 5px;
 		margin: 0px;
@@ -114,25 +114,47 @@
 	text-decoration-line: underline;
 }
 
-.main_container {
-	width:1000px;
-	height: 200px;
+.how-it-works{
+	margin: 0 auto;
+	justify-content: center;
+}
+
+.step-1 {
+	justify-content: center;
 	display: flex;
-	flex-direction:row;
+	flex-direction: row;
+	padding:80px;
 }
 
 
-#image_container_1 {
-	display: relative;
-	flex-grow:1;
-	background-image: url("homepage/todo.png");
-	background-size: cover;
-	height:100%;
+.image_container_1{
+	top:50px;
+	display:inline-flex;
+// background-size:fill;
+// background-image:url("homepage/todo.png");
+}
+.row{
+	justify-content: center;
+	margin:0 auto;
 }
 
-.content {
-	flex-grow:2;
+.inner-content{
+display:inline-flex;
+width:300px;
+padding-left: 20px;
+padding-right:20px;
+font-size:24px;
+color:rgba(0,0,0,0.7);
 }
 
 
+}
+
+
+///CREATE A NEW TASK PAGE CSS////
+.wrapper{
+	width:70%;
+	justify-content: center;
+	margin:0 auto;
+	background-color:rgba(245,245,245,0.9);
 }
