@@ -30,10 +30,13 @@ function markMap() {
   var myCoords = new google.maps.LatLng(lat, lng);
   var mapOptions = {
     center: myCoords,
-    zoom: 14
+    zoom: 18
   };
   var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-  var marker;
+  var marker = new google.maps.Marker({
+    position: myCoords,
+    map: map
+  })
 
   // Create the search box and link it to the UI element.
   var input = document.getElementById('pac-input');
@@ -123,7 +126,7 @@ function markMap() {
   }
 }
 
-
+// function for initializing new map with no markers
 function newMap() {
   var lat = document.getElementById('task_latitude').value;
   var lng = document.getElementById('task_longitude').value;
@@ -198,24 +201,10 @@ function newMap() {
     refreshMarker();
   });
 
-
-      //add click event for marker
+  //add click event for marker
   google.maps.event.addListener(map, 'click', function(event) {
     placeMarker(event.latLng);
-    refreshMarker();
-    marker.addListener('drag', function() {
-      latlng = marker.getPosition();
-      newlat=(Math.round(latlng.lat()*1000000))/1000000;
-      newlng=(Math.round(latlng.lng()*1000000))/1000000;
-      document.getElementById('task_latitude').value = newlat;
-      document.getElementById('task_longitude').value = newlng;
-    });
-
-    // When drag ends, center (pan) the map on the marker position
-    marker.addListener('dragend', function() {
-      map.panTo(marker.getPosition());   
-    });
-    
+    refreshMarker();   
   });
 
   function placeMarker(location) {
@@ -229,6 +218,18 @@ function newMap() {
         draggable: true
       });
     }
+    marker.addListener('drag', function() {
+      latlng = marker.getPosition();
+      newlat=(Math.round(latlng.lat()*1000000))/1000000;
+      newlng=(Math.round(latlng.lng()*1000000))/1000000;
+      document.getElementById('task_latitude').value = newlat;
+      document.getElementById('task_longitude').value = newlng;
+    });
+
+    // When drag ends, center (pan) the map on the marker position
+    marker.addListener('dragend', function() {
+      map.panTo(marker.getPosition());   
+    });
   }
 
   //refresh marker position and recenter map on marker
@@ -239,20 +240,4 @@ function newMap() {
     document.getElementById('task_longitude').value = lng;
     map.setCenter(marker.getPosition());
   }
-
-  // when input values change call refreshMarker
-  document.getElementById('task_latitude').onchange = refreshMarker();
-  document.getElementById('task_longitude').onchange = refreshMarker();
-  // when marker is dragged update input values
-  marker.addListener('drag', function() {
-      latlng = marker.getPosition();
-      newlat=(Math.round(latlng.lat()*1000000))/1000000;
-      newlng=(Math.round(latlng.lng()*1000000))/1000000;
-      document.getElementById('task_latitude').value = newlat;
-      document.getElementById('task_longitude').value = newlng;
-  });
-  // When drag ends, center (pan) the map on the marker position
-  marker.addListener('dragend', function() {
-      map.panTo(marker.getPosition());   
-  });
 }

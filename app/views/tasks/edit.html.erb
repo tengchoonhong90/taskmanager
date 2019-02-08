@@ -25,17 +25,10 @@
       </div>
 
       <div class="form-group">
-        <label for="PostalCode">Postal Code:</label><br>
-        <%= form.text_field :location, id: "pac-input", class: "controls", placeholder: "Search Address" %>
-        <br><br>
-        <div class="field">
-          <%= form.label :latitude %>
-          <%= form.text_field :latitude %>
-        </div>
-        <div class="field">
-          <%= form.label :longitude %>
-          <%= form.text_field :longitude %>
-        </div>
+        <label for="Location">Address:</label><br>
+        <%= form.text_field :location, id: "pac-input", class: "form-control", placeholder: "Search Address" %>
+        <%= form.hidden_field :latitude %>
+        <%= form.hidden_field :longitude %><br>
         <div id="map"></div>
       </div>
 
