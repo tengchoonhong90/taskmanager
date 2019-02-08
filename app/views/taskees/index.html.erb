@@ -50,6 +50,14 @@
 							render partial: "editTaskeeChoice", locals: {task: task}
 						end
 					%>
+
+					<p><p>
+
+					<%=
+						if task.confirmed && userSelected(task)  === true
+							render plain: "There is supposed to be  button here where the user can click to indicate that he has completed the task."
+						end
+					%>
 					
 				</div>
 			</div>
