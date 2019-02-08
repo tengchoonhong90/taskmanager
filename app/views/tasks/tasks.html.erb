@@ -16,11 +16,13 @@
 							src="<%= image_url showStatus(task) %>"
 							class="position-relative float-right"
 						/>
-						<h5 class="card-title">
+						<h5 class="card-title  titleFont">
 							<%= task.task_name %>
 						</h5>
 						<h5 class="card-text">
-							<%= number_to_currency(task.price) %>
+							<span class = "text-success titleFont">
+								<%= number_to_currency(task.price) %>
+							</span>
 							<%= showNego(task.negotiable) %>
 						</h5>
 						<h5 class="card-title">Address: <%= task.location %></h5>

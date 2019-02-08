@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
 
 	def showNego(status)
 		if status === true
-			return '(Price Negotiable)'
+			return '(Negotiable)'
 		end
 	end
 
