@@ -66,9 +66,10 @@ class ApplicationController < ActionController::Base
 	def promptIfBidded(task) 
 
 		userHasBidded = @taskees.where(:task_id => task.id, :user_id => current_user.id)
-		bidSum = showBid(task).to_s
+		bidSum = showBid(task)
+		bidSumCurrency = view_context.number_to_currency(bidSum)
 
-		bidded = '<strong class=" alert alert-warning d-inline-block">You have bidded $' + bidSum +'0</strong>' 
+		bidded = '<strong class=" alert alert-warning d-inline-block">You have bidded ' + bidSumCurrency +'</strong>' 
 		indicated = '<strong class=" alert alert-warning d-inline-block">You have indicated interest</strong>'
 
 		if userHasBidded.exists? === true
@@ -190,6 +191,23 @@ class ApplicationController < ActionController::Base
 			end
 		end
 
+	end
+
+	def successfulSelection(task)
+		return task.confirmed && userSelected(task)
+	end
+
+	def changeTaskeeCardBackground(task)
+
+		userHasBidded = @taskees.where(:task_id => task.id, :user_id => current_user.id)
+
+		if successfulSelection(task) === true
+			return "background-color: #ebffeb; border-color: #c4ffc4;"
+		elsif task.confirmed === true && userSelected(task) === false
+			return "background-color: #ffebeb; border-color: #ffd8d8;"
+		elsif userHasBidded.exists? === true
+			return "background-color: #ffffeb; border-color: #ffffb0;"
+		end
 	end
 
 end
