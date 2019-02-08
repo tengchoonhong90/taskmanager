@@ -1,64 +1,86 @@
 <%= showNavBar %>
 
 <div>
-<div class="mainCenter">
+	<div class="mainCenter">
 
-	<h1 class="logoFont">Here are the available tasks.</h1>
 
-	<div>
-		<% @tasks.each do |task| %>
+	<h1 class="logoFont d-inline-block align-middle" style="margin:0;">Here are the available tasks.</h1>
+
+	<%= render template: "components/infoOnIcons" %>
+
+		<div>
+			<% @tasks.each do |task| %>
+			<% provide :head_tags do %>
+			<meta name='turbolinks-visit-control' content='reload'>
+			<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyATiUC-CYabYFtmwdk5Aw88h1PAyTP8zGI&libraries=places'></script>
+			<script>
+				document.addEventListener("DOMContentLoaded", function () {
+					currentMap(<%=task.latitude%>, <%=task.longitude%>)
+				});
+			</script>
+			<% end %>
 			<div class="card d-inline-block align-top m-3" style="width: 20rem;">
 				<div class="card-body">
+
 					<img 
 						src="<%= image_url showStatus(task) %>" 
 						class="position-relative float-right"
 					/>
-					<h5 class="card-title">
+					<h5 class="card-title titleFont">
 						<%= task.task_name %>
 					</h5>
 					<h5 class="card-text">
-						<%= number_to_currency(task.price) %>
+						<span class = "text-success titleFont">
+							<%= number_to_currency(task.price) %>
+						</span>
 						<%= showNego(task.negotiable) %>
 					</h5>
-					<h5 class="card-title">Postal Code: <%= task.location %></h5>
-					<p class="card-text">Start Time: <%= task.start_time %></p>
-					<h6 class="card-subtitle mb-2 text-muted innerDesc"> <%= task.task_description %></h6>
+					<h5 class="card-title">
+						Address: <%= task.location %>
+					</h5>
+
+					<p class="card-text">Start Time:
+						<%= task.start_time %>
+					</p>
+					<h6 class="card-subtitle mb-2 text-muted innerDesc">
+						<%= task.task_description %>
+					</h6>
+
 					<p class="card-text">
-						Posted by: <strong><%= task.user.username %></strong>
+						Posted by: <strong>
+							<%= task.user.username %></strong>
 					</p>
 					<p class="card-text">
-						On: <%= task.created_at %>
+						On:
+						<%= task.created_at %>
 					</p>
-					<%= promptIfBidded(task) %> 
-					
+
+					<%= promptIfBidded(task) %>
+
 					<%=
-						if task.confirmed 
-							render plain: "Task is confirmed. No changes allowed."
+						if task.confirmed && userSelected(task)  === true
+							render html: '<strong class=" alert alert-success d-inline-block">You are selected for this task</strong>'.html_safe
+
+						elsif task.confirmed && userSelected(task)  === false
+							render html: '<strong class=" alert alert-danger d-inline-block">You were not selected for this task</strong>'.html_safe
 						else
 							render partial: "editTaskeeChoice", locals: {task: task}
+						end
+					%>
+	
+					<%=
+						if task.confirmed && userSelected(task)  === true
+							render partial: "buttonOnDoneTask", locals: {task: task}
 						end
 					%>
 					
 				</div>
 			</div>
-	  	<% end %>
+			<% end %>
+			
+					<div id="map"></div>
+			
+		</div>
+		<br />
 	</div>
-	<br/>
 </div>
-</div>
-
-<p>
-	<img src="<%= image_url 'circles/open-circle.png' %>"/>
-	This icon means the task is open for taskees.
-</p>
-<p>
-	<img src="<%= image_url 'circles/closed-circle.png' %>"/>
-	This icon means the tasker has selected the taskee.</p>
-<p>
-	<img src="<%= image_url 'circles/smiley-circle.png' %>"/>
-	This icon means that the job is done.
-</p>
-<p>
-	<img src="<%= image_url 'circles/closed-circle-red.png' %>"/>
-	This icon means that the job is incomplete, for some reason.
-</p>

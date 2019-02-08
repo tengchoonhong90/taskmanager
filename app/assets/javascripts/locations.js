@@ -241,3 +241,65 @@ function newMap() {
     map.setCenter(marker.getPosition());
   }
 }
+
+//function to show all task to current user available on map
+function showAll() {
+    var map;
+    var bounds = new google.maps.LatLngBounds();
+    var myCoords = new google.maps.LatLng(1.3521, 103.8198);
+    var mapOptions = {
+        mapTypeId: 'roadmap',
+        position: myCoords
+    };
+                    
+    // Display a map on the page
+    map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    map.setTilt(45);
+        
+    var taskArray = gon.locations;
+    var taskeeArray = gon.taskees;
+    var current_user = gon.user;
+
+    console.log(taskArray[0])
+    console.log(taskeeArray[0])
+        
+    // Display multiple markers on a map
+    var infoWindow = new google.maps.InfoWindow(), marker, i;
+    
+    // Loop through our array of markers & place each one on the map  
+    for( let i = 0; i < taskArray.length; i++ ) {
+      for( let j = 0; j < taskeeArray.length; j++ ) {
+        if ( taskArray[i].id == taskeeArray[j].task_id && taskArray[i].user_id != current_user && taskArray[i].completed != true ) {
+          var position = new google.maps.LatLng(taskArray[i].latitude, taskArray[i].longitude);
+          bounds.extend(position);
+          marker = new google.maps.Marker({
+              position: position,
+              map: map,
+              title: taskArray[i].task_name
+          });
+        
+          // Allow each marker to have an info window    
+          google.maps.event.addListener(marker, 'click', (function(marker, i) {
+              return function() {
+                  infoWindow.setContent(`<div><h5>${taskArray[i].task_name}</h5><div>
+                  <div>${taskArray[i].task_description}<div>
+                  <div><a href="/taskees/${taskeeArray[j].id}">To Task</a></div>
+                  `);
+                  map.setCenter(marker.getPosition())
+                  infoWindow.open(map, marker);
+              }
+          })(marker, i));
+
+          // Automatically center the map fitting all markers on the screen
+          map.fitBounds(bounds);
+        }
+      }
+    }
+
+    // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+    var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+        this.setZoom(12);
+        google.maps.event.removeListener(boundsListener);
+    });
+  
+}
