@@ -1,7 +1,10 @@
 <% provide :head_tags do %>
 <meta name='turbolinks-visit-control' content='reload'>
+<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyATiUC-CYabYFtmwdk5Aw88h1PAyTP8zGI&libraries=places'></script>
 <script>
-document.addEventListener("DOMContentLoaded", initMap2);
+	document.addEventListener("DOMContentLoaded", function () {
+		currentMap(<%=@task.latitude%>, <%=@task.longitude%>)
+	});
 </script>
 <% end %>
 <%= showNavBar %>
@@ -110,8 +113,9 @@ document.addEventListener("DOMContentLoaded", initMap2);
                   render partial: "buttonToConcludeTask", locals: {task: @task, setName: "task[incomplete]", setId: "task_incomplete", setButton: "incomplete" }
                 end
               %>
+              <div id="map"></div>
           </div>
         </div>
-        <br />
+        <br/>
     </div>
 </div>
