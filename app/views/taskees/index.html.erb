@@ -49,7 +49,7 @@
 					
 					<%=
 						if task.confirmed && userSelected(task)  === true
-							render plain: "There is supposed to be  button here where the user can click to indicate that he has completed the task."
+							render partial: "buttonOnDoneTask", locals: {task: task}
 						end
 					%>
 					
