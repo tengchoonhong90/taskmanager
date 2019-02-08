@@ -53,6 +53,10 @@ class TasksController < ApplicationController
     redirect_to tasks_path
   end
 
+  def map
+    gon.locations = Task.all
+  end
+
   private
   def task_params
 

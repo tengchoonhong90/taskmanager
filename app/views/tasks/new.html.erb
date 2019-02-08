@@ -25,8 +25,8 @@
       <div class="form-group">
         <label for="Location">Address:</label><br>
         <%= form.text_field :location, id: "pac-input", class: "form-control", placeholder: "Search Address"%>
-        <%= form.text_field :latitude %>
-        <%= form.text_field :longitude %><br>
+        <%= form.hidden_field :latitude %>
+        <%= form.hidden_field :longitude %><br>
         <div id="map"></div>
       </div>
 
