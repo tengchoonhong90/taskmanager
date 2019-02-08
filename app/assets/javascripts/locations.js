@@ -246,8 +246,10 @@ function newMap() {
 function showAll() {
     var map;
     var bounds = new google.maps.LatLngBounds();
+    var myCoords = new google.maps.LatLng(1.3521, 103.8198);
     var mapOptions = {
         mapTypeId: 'roadmap',
+        position: myCoords
     };
                     
     // Display a map on the page
