@@ -201,16 +201,53 @@ class ApplicationController < ActionController::Base
 		return task.confirmed && userSelected(task)
 	end
 
+	def cardBackgroundColor(colour)
+
+		green = "background-color: #ebffeb; border-color: #c4ffc4;"
+		yellow = "background-color: #ffffeb; border-color: #ffffb0;"
+		red = "background-color: #ffebeb; border-color: #ffd8d8;"
+
+		if colour === "green"
+			return green
+		elsif colour === "red"
+			return red
+		elsif colour === "yellow"
+			return yellow
+		end
+	end
+
 	def changeTaskeeCardBackground(task)
 
 		userHasBidded = @taskees.where(:task_id => task.id, :user_id => current_user.id)
 
 		if successfulSelection(task) === true
-			return "background-color: #ebffeb; border-color: #c4ffc4;"
+			return cardBackgroundColor("green")
 		elsif task.confirmed === true && userSelected(task) === false
-			return "background-color: #ffebeb; border-color: #ffd8d8;"
+			return cardBackgroundColor("red")
 		elsif userHasBidded.exists? === true
-			return "background-color: #ffffeb; border-color: #ffffb0;"
+			return cardBackgroundColor("yellow")
+		end
+	end
+
+	def changeTaskCardBackground(task)
+
+		if task.confirmed === true && task.completed === false && task.incomplete === false
+			return cardBackgroundColor("yellow")
+		elsif task.confirmed === true && task.completed === true && task.incomplete === false
+			return cardBackgroundColor("green")
+		elsif task.confirmed === true && task.completed === false && task.incomplete === true
+			return cardBackgroundColor("red")
+		end
+
+	end
+
+	def taskStatusUpdate(task)
+		if task.confirmed === true && task.completed === true && task.incomplete === false
+			return "completed"
+		elsif task.confirmed === true && task.completed === false && task.incomplete === true
+			return "incomplete"
+		else 
+			return "showInterestedParties"
 		end
 	end
 
