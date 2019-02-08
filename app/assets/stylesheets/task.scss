@@ -20,10 +20,6 @@
 }
 
 .mainCenter{
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    overflow: hidden;
     margin-left: auto;
     margin-right: auto;
 }
@@ -34,6 +30,11 @@
 
 .logoFont {
 	font-family: 'Cherry Swash', cursive;
+}
+
+.titleFont {
+	font-family: 'Montserrat', sans-serif;
+	font-weight: bold;
 }
 
 .error {
@@ -58,50 +59,102 @@
 .index-foo{
 
 	#banner1{
-		height: 900px;
-		border:10px solid rgb(255,234,204);
+		height: 780px;
+		// border:10px solid rgb(255,234,204);
 		border-right-width:5px;
 		margin: 0px;
 		background-image:url("homepage/box.jpg");
 		background-position:center center;
 		background-size:fill;
 		background-repeat: no-repeat;
-
+		bottom:10PX;
 		font-size:40px;
 		text-align: center;
-		color:white;
+
+
+				        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+
+
 	}
 
 	.pp{
-		font-size: 24px;
+		text-align:center;
+		color:turquoise;
+		// padding-top:25px;
 	}
 		#banner2{
-		height: 900px;
-		border:10px solid rgb(255,234,204);
+		height: 780px;
+		// border:10px solid rgb(255,234,204);
 		border-left-width: 5px;
 		margin: 0px;
 		background-image:url("homepage/tape.jpg");
 		background-position:center center;
 		background-size:fill;
 		background-repeat: no-repeat;
-
+		bottom:10px;
 		font-size:40px;
 		text-align:center;
-		color:white;
+
+		        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
 
 	}
 
-	.coffee{
+.heading{
+	padding-top:25px;
+	text-align: center;
+	color: turquoise;
+	text-decoration-line: underline;
+}
 
-		height:600px;
-		background-image:url("homepage/coffee.jpg");
-		background-position:center center;
-		background-size:cover;
-		background-repeat: no-repeat;
-		background-attachment: fixed;
-				font-size:40px;
-		text-align:center;
-		color:white;
-	}
+.how-it-works{
+	margin: 0 auto;
+	justify-content: center;
+}
 
+.step-1 {
+	justify-content: center;
+	display: flex;
+	flex-direction: row;
+	padding:80px;
+}
+
+
+.image_container_1{
+	top:50px;
+	display:inline-flex;
+// background-size:fill;
+// background-image:url("homepage/todo.png");
+}
+.row{
+	justify-content: center;
+	margin:0 auto;
+}
+
+.inner-content{
+display:inline-flex;
+width:300px;
+padding-left: 20px;
+padding-right:20px;
+font-size:24px;
+color:rgba(0,0,0,0.7);
+}
+
+
+}
+
+
+///CREATE A NEW TASK PAGE CSS////
+.wrapper{
+	width:70%;
+	justify-content: center;
+	margin:0 auto;
+	background-color:rgba(245,245,245,0.9);
 }

@@ -12,8 +12,8 @@
 <style>
 body {
 		margin: 0 auto;
-		width: 95%;
-		background-color: rgba(255,234,204);
+		width: 100%;
+		background-color: rgba(255,255,255);
 }
 </style>
 
@@ -21,51 +21,53 @@ body {
 			<div class="row">
 				<div class="col-sm-6" id="banner1">
 						Want to Give Back to the Community?
-						<p class="pp"> View a variety of Tasks through specified filters to find the niche you enjoy.
+						<p class="pp" style="font-size:24px;"> View a variety of Tasks through specified filters to find the niche you enjoy.
 						</p>
 					</div>
 				<div class="col-sm-6" id="banner2">
 						Need Help with Something?
-					<p class="pp"> Meet Task Manager. The app that connects you to other like minded individuals to meet your demands.</p>
+					<p class="pp" style="font-size:24px;"> Meet Task Manager. The app that connects you to other like minded individuals to meet your demands.</p>
 					</div>
 		</div>
-
-		<p class="pp"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-		<div class="coffee">
-Whatever you might want. Request it and name your price.
+		<div class="heading">
+			<h1> How it Works </h1>
 		</div>
 
-			<p class="pp"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<section class="section">
+<div class="container--wide">
+	<div class="row">
+		<div class="col-10 col-md-8 col-lg-6 col-centered">
+			<div class="how-it-works">
+				<div class="step-1">
+					<div class="image_container_1">
+					<%= image_tag("homepage/todo.png",size: "180x180") %>
+					</div>
+					<div class="inner-content">
+						<!-- <div class ="title">Describe the task</div> -->
+						Choose from a variety of home services and select the day and time you'd like a qualified Tasker to show up. Give us the details and we'll find you the help.
+					</div>
+				</div>
+				<div class="step-1">
+					<div class="inner-content">
+						<!-- <div class ="title">Get matched</div> -->
+						Select from a list of qualified and fully vetted Taskers for the job. Choose Taskers by their hourly rate and start chatting with them right in the app.
+					</div>
+					<div class="image_container_1">
+					<%= image_tag("homepage/findmatch.jpg",size: "180x180") %>
+					</div>
 
+				</div>
+								<div class="step-1">
+					<div class="image_container_1">
+					<%= image_tag("homepage/accept.png",size: "180x180") %>
+					</div>
+					<div class="inner-content">
+						<!-- <div class ="title">Get it done</div> -->
+						Just like that, your Tasker arrives and gets the job done. When your task is complete, payment will happen seamlessly and securely through the app.
+					</div>
+				</div>
+	</div>
 </div>
+</section>
 
-<p>This is the introduction page to the site</p>
-
-<p>
-	<img src="<%= image_url 'circles/open-circle.png' %>"/>
-	This icon means the task is open for taskees.
-</p>
-<p>
-	<img src="<%= image_url 'circles/closed-circle.png' %>"/>
-	This icon means the tasker has selected the taskee.</p>
-<p>
-	<img src="<%= image_url 'circles/smiley-circle.png' %>"/>
-	This icon means that the job is done.
-</p>
-<p>
-	<img src="<%= image_url 'circles/closed-circle-red.png' %>"/>
-	This icon means that the job is incomplete, for some reason.
-</p>
-
-</div>
+<%= render template: "components/footer"%>
