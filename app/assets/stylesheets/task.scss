@@ -20,10 +20,6 @@
 }
 
 .mainCenter{
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    overflow: hidden;
     margin-left: auto;
     margin-right: auto;
 }
@@ -41,10 +37,8 @@
 }
 
 #map {
-    width: 600px;
+    width: 100%;
     height: 400px;
-
-
 }
 
 
