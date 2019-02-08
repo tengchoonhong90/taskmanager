@@ -3,6 +3,10 @@ class TasksController < ApplicationController
   helper_method :showStatus, :showNego, :numberInterested, :showNavBar, :highlightCurrentPageOnNavBar, :taskeeId, :changeValueOnSelectTaskee, :changeButtonOnSelectTaskee, :changeValueOnConfirmTask, :changeButtonOnConfirmTask, :showSelectedTaskeeCard
 
   def index
+
+  end
+
+  def tasks
     if user_signed_in?
       @tasks = Task.where(user_id: current_user.id)
       @taskees = Taskee.all
@@ -51,6 +55,10 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:task_name,:user_id, :task_description, :start_time, :price, :negotiable, :location, :confirmed, :completed, :incomplete)
+
+    params.require(:task).permit(:task_name,:user_id, :task_description, :start_time, :price, :negotiable, :location, :confirmed, :completed, :incomplete, :longitude, :latitude)
+
   end
+
+
 end

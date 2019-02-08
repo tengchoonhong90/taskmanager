@@ -1,4 +1,14 @@
+
 <%= showNavBar %>
+
+<div id="homepage">
+
+<% if user_signed_in? %>
+<%= render template: "components/navbarLoggedIn"%>
+<% else %>
+<%= render template: "components/navbarNewUser"%>
+<% end %>
+
 <style>
 body {
 		margin: 0 auto;
@@ -6,47 +16,9 @@ body {
 		background-color: rgba(255,255,255);
 }
 </style>
+
 <div class="index-foo">
-		<div class="mainCenter">
-				<!-- 	<%= link_to 'New task', new_task_path %> -->
-				<div>
-						<% if user_signed_in? %>
-						<% @tasks.each do |task| %>
-						<div class="card d-inline-block align-top m-3" style="width: 20rem;">
-								<div class="card-body">
-										<img
-						src="<%= image_url showStatus(task) %>"
-						class="position-relative float-right"
-					/>
-										<h5 class="card-title">
-						<%= task.task_name %>
-					</h5>
-										<h5 class="card-text">
-						<%= number_to_currency(task.price) %>
-						<%= showNego(task.negotiable) %>
-					</h5>
-										<h5 class="card-title">Postal Code: <%= task.location %></h5>
-										<strong class=" alert alert-warning d-inline-block">There are <%= numberInterested(task) %> interested parties.</strong>
-										<p class="card-text">Start Time:
-												<%= task.start_time %>
-										</p>
-										<h6 class="card-subtitle mb-2 text-muted innerDesc"> <%= task.task_description %></h6>
-										<p class="card-text">Created on:
-												<%= task.created_at %>
-										</p>
-										<%= link_to 'Show', task_path(task) %>
-										<%= link_to 'Edit', edit_task_path(task) %>
-										<%= link_to 'Destroy', task_path(task),
-				        method: :delete,
-				        data: { confirm: 'Are you sure?' } %>
-								</div>
-						</div>
-						<% end %>
-						<% end %>
-				</div>
-				<br />
-		</div>
-		<div class="row">
+			<div class="row">
 				<div class="col-sm-6" id="banner1">
 						Want to Give Back to the Community?
 						<p class="pp" style="font-size:24px;"> View a variety of Tasks through specified filters to find the niche you enjoy.
@@ -60,6 +32,7 @@ body {
 		<div class="heading">
 			<h1> How it Works </h1>
 		</div>
+
 
 <div class="how-it-works">
 	<div class="main_container">

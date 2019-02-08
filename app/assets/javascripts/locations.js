@@ -17,23 +17,26 @@ function currentMap(lat, lng) {
 
 //function for updating location
 function markMap() {
-  var lat = document.getElementById('location_latitude').value;
-  var lng = document.getElementById('location_longitude').value;
-    
+  var lat = document.getElementById('task_latitude').value;
+  var lng = document.getElementById('task_longitude').value;
+ 
   // if not defined create default position
   if (!lat || !lng){
     lat=1.3521;
     lng=103.8198;
-    document.getElementById('location_latitude').value = lat;
-    document.getElementById('location_longitude').value = lng;
+    document.getElementById('task_latitude').value = lat;
+    document.getElementById('task_longitude').value = lng;
   }
   var myCoords = new google.maps.LatLng(lat, lng);
   var mapOptions = {
     center: myCoords,
-    zoom: 14
+    zoom: 18
   };
   var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-  var marker;
+  var marker = new google.maps.Marker({
+    position: myCoords,
+    map: map
+  })
 
   // Create the search box and link it to the UI element.
   var input = document.getElementById('pac-input');
@@ -78,6 +81,7 @@ function markMap() {
       }
     });
     map.fitBounds(bounds);
+    console.log(places)
   });
 
   //add click event for marker
@@ -88,8 +92,8 @@ function markMap() {
       latlng = marker.getPosition();
       newlat=(Math.round(latlng.lat()*1000000))/1000000;
       newlng=(Math.round(latlng.lng()*1000000))/1000000;
-      document.getElementById('location_latitude').value = newlat;
-      document.getElementById('location_longitude').value = newlng;
+      document.getElementById('task_latitude').value = newlat;
+      document.getElementById('task_longitude').value = newlng;
     });
 
     // When drag ends, center (pan) the map on the marker position
@@ -116,25 +120,124 @@ function markMap() {
   function refreshMarker() {
     var lat = marker.getPosition().lat();
     var lng = marker.getPosition().lng();
-    document.getElementById('location_latitude').value = lat;
-    document.getElementById('location_longitude').value = lng;
+    document.getElementById('task_latitude').value = lat;
+    document.getElementById('task_longitude').value = lng;
     map.setCenter(marker.getPosition());
   }
+}
 
-  // // refresh marker position and recenter map on marker
-  // function refreshMarker(){
-  //   var lat = document.getElementById('location_latitude').value;
-  //   var lng = document.getElementById('location_longitude').value;
-  //   var myCoords = new google.maps.LatLng(lat, lng);
-  //   marker.setPosition(myCoords);
-  //   map.setCenter(marker.getPosition());   
-  // }
+// function for initializing new map with no markers
+function newMap() {
+  var lat = document.getElementById('task_latitude').value;
+  var lng = document.getElementById('task_longitude').value;
 
-  // // when input values change call refreshMarker
-  // document.getElementById('location_latitude').onchange = refreshMarker;
-  // document.getElementById('location_longitude').onchange = refreshMarker;
+  if (!lat || !lng){
+    lat=1.3521;
+    lng=103.8198;
+    document.getElementById('task_latitude').value = lat;
+    document.getElementById('task_longitude').value = lng;
+  }
+  var myCoords = new google.maps.LatLng(lat, lng);
+  var mapOptions = {
+    center: myCoords,
+    zoom: 11
+  };
+  var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
+  var card = document.getElementById('pac-card');
+  var input = document.getElementById('pac-input');
 
+  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
 
+  var autocomplete = new google.maps.places.Autocomplete(input);
 
+  // Bind the map's bounds (viewport) property to the autocomplete object,
+  // so that the autocomplete requests use the current map bounds for the
+  // bounds option in the request.
+  autocomplete.bindTo('bounds', map);
+
+  // Set the data fields to return when the user selects a place.
+  autocomplete.setFields(
+      ['address_components', 'geometry', 'icon', 'name']);
+
+  var marker = new google.maps.Marker({
+    map: map,
+    anchorPoint: new google.maps.Point(1.3521, 103.58),
+    draggable: true
+  });
+
+  autocomplete.addListener('place_changed', function() {
+    marker.setVisible(false);
+    var place = autocomplete.getPlace();
+    if (!place.geometry) {
+      // User entered the name of a Place that was not suggested and
+      // pressed the Enter key, or the Place Details request failed.
+      window.alert("No details available for input: '" + place.name + "'");
+      return;
+    }
+
+    // If the place has a geometry, then present it on a map.
+    if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+    } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(17);  // Why 17? Because it looks good.
+    }
+    marker.setPosition(place.geometry.location);
+    marker.setVisible(true);
+    
+    // when marker is dragged update input values
+    marker.addListener('drag', function() {
+      latlng = marker.getPosition();
+      newlat=(Math.round(latlng.lat()*1000000))/1000000;
+      newlng=(Math.round(latlng.lng()*1000000))/1000000;
+      document.getElementById('task_latitude').value = newlat;
+      document.getElementById('task_longitude').value = newlng;
+    });
+    // When drag ends, center (pan) the map on the marker position
+    marker.addListener('dragend', function() {
+      map.panTo(marker.getPosition());   
+    });
+    refreshMarker();
+  });
+
+  //add click event for marker
+  google.maps.event.addListener(map, 'click', function(event) {
+    placeMarker(event.latLng);
+    refreshMarker();   
+  });
+
+  function placeMarker(location) {
+    if ( marker ) {
+      marker.setPosition(location);
+    } else {
+      marker = new google.maps.Marker({
+        position: location,
+        animation: google.maps.Animation.DROP,
+        map: map,
+        draggable: true
+      });
+    }
+    marker.addListener('drag', function() {
+      latlng = marker.getPosition();
+      newlat=(Math.round(latlng.lat()*1000000))/1000000;
+      newlng=(Math.round(latlng.lng()*1000000))/1000000;
+      document.getElementById('task_latitude').value = newlat;
+      document.getElementById('task_longitude').value = newlng;
+    });
+
+    // When drag ends, center (pan) the map on the marker position
+    marker.addListener('dragend', function() {
+      map.panTo(marker.getPosition());   
+    });
+  }
+
+  //refresh marker position and recenter map on marker
+  function refreshMarker() {
+    var lat = marker.getPosition().lat();
+    var lng = marker.getPosition().lng();
+    document.getElementById('task_latitude').value = lat;
+    document.getElementById('task_longitude').value = lng;
+    map.setCenter(marker.getPosition());
+  }
 }

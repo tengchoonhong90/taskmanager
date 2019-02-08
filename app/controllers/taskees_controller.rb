@@ -33,7 +33,7 @@ class TaskeesController < ApplicationController
       redirect_to taskee_path(@taskee)
     else
       render 'new'
-    end
+    end 
   end
 
   def update

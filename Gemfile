@@ -63,9 +63,13 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "bootstrap", "~> 4.1"
 
+gem 'bootstrap-sass'
+
 gem "jquery-rails", "~> 4.3"
 
 gem "devise", "~> 4.5"
 
 # for validation of date entries
 gem 'validates_timeliness', '~> 5.0.0.alpha3'
+
+gem 'bootstrap-modal-rails'
