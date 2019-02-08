@@ -242,6 +242,7 @@ function newMap() {
   }
 }
 
+//function to show all task to current user available on map
 function showAll() {
     var map;
     var bounds = new google.maps.LatLngBounds();
@@ -266,7 +267,7 @@ function showAll() {
     // Loop through our array of markers & place each one on the map  
     for( let i = 0; i < taskArray.length; i++ ) {
       for( let j = 0; j < taskeeArray.length; j++ ) {
-        if ( taskArray[i].id == taskeeArray[j].task_id && taskArray[i].user_id != current_user) {
+        if ( taskArray[i].id == taskeeArray[j].task_id && taskArray[i].user_id != current_user && taskArray[i].completed != true ) {
           var position = new google.maps.LatLng(taskArray[i].latitude, taskArray[i].longitude);
           bounds.extend(position);
           marker = new google.maps.Marker({
@@ -282,6 +283,7 @@ function showAll() {
                   <div>${taskArray[i].task_description}<div>
                   <div><a href="/taskees/${taskeeArray[j].id}">To Task</a></div>
                   `);
+                  map.setCenter(marker.getPosition())
                   infoWindow.open(map, marker);
               }
           })(marker, i));
