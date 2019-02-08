@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
 	root 'tasks#index'
 
-	get '/tasks' => 'tasks#index', as: 'tasks'
+	get '/tasks' => 'tasks#tasks', as: 'tasks'
 	get '/new' => 'tasks#new', as: 'new_task'
 	get '/find/tasks' => 'tasks#find'
 	post '/tasks' => 'tasks#create'
