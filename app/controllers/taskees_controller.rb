@@ -1,6 +1,6 @@
 class TaskeesController < ApplicationController
 
-  helper_method :showStatus, :showNego, :promptIfBidded, :taskeeId, :changeFormMethodOnBid, :showBid, :bidType, :buttonIfBid, :showNavBar, :showUndoBid, :highlightCurrentPageOnNavBar, :changeValueOnSelectTaskee
+  helper_method :showStatus, :showNego, :promptIfBidded, :taskeeId, :changeFormMethodOnBid, :showBid, :bidType, :buttonIfBid, :showNavBar, :showUndoBid, :highlightCurrentPageOnNavBar, :changeValueOnSelectTaskee, :userSelected
 
 	def index
 
@@ -11,6 +11,7 @@ class TaskeesController < ApplicationController
       @tasks = Task.where.not(user_id: current_user.id)
       @taskees = Taskee.all
     end
+
   end
 
   # def show
