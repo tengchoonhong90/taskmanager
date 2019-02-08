@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", initMap2);
                       <%= number_to_currency(@task.price) %>
                       <%= showNego(@task.negotiable) %>
                     </h5>
-                    <h5 class="card-title">Postal Code: <%= @task.location %></h5>
+                    <h5 class="card-title">Address: <%= @task.location %></h5>
                     <p class="card-text">Start Time:
                         <%= @task.start_time %>
                     </p>

@@ -23,7 +23,7 @@
 						<%= number_to_currency(task.price) %>
 						<%= showNego(task.negotiable) %>
 					</h5>
-					<h5 class="card-title">Postal Code: <%= task.location %></h5>
+					<h5 class="card-title">Address: <%= task.location %></h5>
 					<strong class=" alert alert-warning d-inline-block">There are <%= numberInterested(task) %> interested parties.</strong>
 					<p class="card-text">Start Time: <%= task.start_time %></p>
 					<h6 class="card-subtitle mb-2 text-muted innerDesc"> <%= task.task_description %></h6>
