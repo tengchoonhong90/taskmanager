@@ -20,20 +20,19 @@
 			</script>
 			<% end %>
 			<div 
-				class="card d-inline-block align-top m-3" 
+				class="card d-inline-block align-top m-3 grow" 
 				style="<%=changeTaskeeCardBackground(task) %> width: 20rem;"
 			>
 				<div class="card-body">
 
+					<h5 class="card-text position-relative float-right titleFont text-white bg-dark rounded p-1 ml-3">
+						<%= number_to_currency(task.price) %>
+					</h5>
+
 					<h5 class="card-title titleFont">
 						<%= task.task_name %>
-					</h5>
-					<h5 class="card-text">
-						<span class = "text-success titleFont">
-							<%= number_to_currency(task.price) %>
-						</span>
-						<%= showNego(task.negotiable) %>
-					</h5>
+					</h5>					
+					
 					<h5 class="card-title">
 						Address: <%= task.location %>
 					</h5>
