@@ -63,6 +63,19 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
+	def userSelected(task) 
+
+		userWasSelected = @taskees.where(:task_id => task.id, :user_id => current_user.id, :selected => true)
+
+		if userWasSelected.exists? === true
+			return true
+		else
+			return false
+		end
+
+	end
+
+
 	def taskeeId(task)
 
 		checkTaskeeId = @taskees.where(:task_id => task.id, :user_id => current_user.id)

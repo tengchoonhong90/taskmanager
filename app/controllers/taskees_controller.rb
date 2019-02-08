@@ -1,6 +1,6 @@
 class TaskeesController < ApplicationController
 
-  helper_method :showStatus, :showNego, :promptIfBidded, :taskeeId, :changeFormMethodOnBid, :showBid, :bidType, :buttonIfBid, :showNavBar, :showUndoBid, :highlightCurrentPageOnNavBar, :changeValueOnSelectTaskee
+  helper_method :showStatus, :showNego, :promptIfBidded, :taskeeId, :changeFormMethodOnBid, :showBid, :bidType, :buttonIfBid, :showNavBar, :showUndoBid, :highlightCurrentPageOnNavBar, :changeValueOnSelectTaskee, :userSelected
 
 	def index
 

@@ -30,10 +30,22 @@
 						On: <%= task.created_at %>
 					</p>
 					<%= promptIfBidded(task) %> 
-					
+
+					<p><p>
+
 					<%=
 						if task.confirmed 
 							render plain: "Task is confirmed. No changes allowed."
+						end
+					%>
+					
+					<p><p>
+
+					<%=
+						if task.confirmed && userSelected(task)  === true
+							render plain: "Congratulations. You are selected for the task."
+						elsif task.confirmed && userSelected(task)  === false
+							render plain: "Unfortunately, they have chosen to go with someone else."
 						else
 							render partial: "editTaskeeChoice", locals: {task: task}
 						end
