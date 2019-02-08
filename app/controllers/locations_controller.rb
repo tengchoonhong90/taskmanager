@@ -7,6 +7,7 @@ class LocationsController < ApplicationController
   # GET /locations.json
   def index
     @locations = Location.all
+    gon.locations = Location.all
   end
 
   # GET /locations/1
