@@ -25,21 +25,26 @@
 			>
 				<div class="card-body">
 
-					<h5 class="card-text position-relative float-right titleFont text-white bg-dark rounded p-1 ml-3">
+					<%= showNego(task.negotiable) %>
 						<%= number_to_currency(task.price) %>
 					</h5>
-
+					
 					<h5 class="card-title titleFont">
 						<%= task.task_name %>
-					</h5>					
+					</h5>			
 					
-					<h5 class="card-title">
-						Address: <%= task.location %>
+					<h5 class="card-text">
+						<%= (task.start_time).strftime("%d/%m/%Y ")  %>
+						<br>
+						<%= (task.start_time).strftime("at %I:%M%p")  %>
 					</h5>
 
-					<p class="card-text">Start Time:
-						<%= task.start_time %>
+					<p class="card-title text-muted">
+						<small>
+							<%= task.location %>
+						</small>
 					</p>
+
 					<h6 class="card-subtitle mb-2 text-muted innerDesc">
 						<%= task.task_description %>
 					</h6>
@@ -47,10 +52,9 @@
 					<p class="card-text">
 						Posted by: <strong>
 							<%= task.user.username %></strong>
-					</p>
-					<p class="card-text">
-						On:
-						<%= task.created_at %>
+							<br>
+						on:
+							<%= (task.created_at).strftime("%d/%m/%Y at %I:%M%p")  %>
 					</p>
 
 					<%= promptIfBidded(task) %>
