@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Cherry+Swash:700" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'https://maps.googleapis.com/maps/api/js?key=#{Rails.application.credentials.google_maps_api_key}libraries=places&callback=initAutocomplete' %>
+    <%= javascript_include_tag 'https://maps.googleapis.com/maps/api/js?key=#{Rails.application.credentials.google_maps_api_key}libraries=places' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= yield(:head_tags) %>
   </head>
