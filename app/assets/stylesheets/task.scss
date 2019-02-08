@@ -7,6 +7,7 @@
 	font-family: 'Raleway', sans-serif;
 }
 
+
 .innerDesc {
 	display: block;
 	height: 10em;
@@ -19,7 +20,12 @@
 }
 
 .mainCenter{
-	margin: auto;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .alignCenter {
@@ -31,10 +37,73 @@
 }
 
 .error {
-	
+
 }
 
 #map {
     width: 600px;
     height: 400px;
+
+
+}
+
+
+// HOME PAGE
+.homepage{
+   position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.index-foo{
+
+	#banner1{
+		height: 900px;
+		border:10px solid rgb(255,234,204);
+		border-right-width:5px;
+		margin: 0px;
+		background-image:url("homepage/box.jpg");
+		background-position:center center;
+		background-size:fill;
+		background-repeat: no-repeat;
+
+		font-size:40px;
+		text-align: center;
+		color:white;
+	}
+
+	.pp{
+		font-size: 24px;
+	}
+		#banner2{
+		height: 900px;
+		border:10px solid rgb(255,234,204);
+		border-left-width: 5px;
+		margin: 0px;
+		background-image:url("homepage/tape.jpg");
+		background-position:center center;
+		background-size:fill;
+		background-repeat: no-repeat;
+
+		font-size:40px;
+		text-align:center;
+		color:white;
+
+	}
+
+	.coffee{
+
+		height:600px;
+		background-image:url("homepage/coffee.jpg");
+		background-position:center center;
+		background-size:cover;
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+				font-size:40px;
+		text-align:center;
+		color:white;
+	}
+
 }

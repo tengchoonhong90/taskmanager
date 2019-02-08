@@ -1,3 +1,4 @@
+
 <%= showNavBar %>
 
 <div>
@@ -40,8 +41,57 @@
 	</div>
 	<br/>
 </div>
+=======
+<div id="homepage">
+
+<% if user_signed_in? %>
+<%= render template: "components/navbarLoggedIn"%>
+<% else %>
+<%= render template: "components/navbarNewUser"%>
+<% end %>
+
+<style>
+body {
+		margin: 0 auto;
+		width: 95%;
+		background-color: rgba(255,234,204);
+}
+</style>
+
+<div class="index-foo">
+			<div class="row">
+				<div class="col-sm-6" id="banner1">
+						Want to Give Back to the Community?
+						<p class="pp"> View a variety of Tasks through specified filters to find the niche you enjoy.
+						</p>
+					</div>
+				<div class="col-sm-6" id="banner2">
+						Need Help with Something?
+					<p class="pp"> Meet Task Manager. The app that connects you to other like minded individuals to meet your demands.</p>
+					</div>
+		</div>
+
+		<p class="pp"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+		<div class="coffee">
+Whatever you might want. Request it and name your price.
+		</div>
+
+			<p class="pp"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
 </div>
 
+<p>This is the introduction page to the site</p>
 
 <p>
 	<img src="<%= image_url 'circles/open-circle.png' %>"/>
@@ -58,3 +108,5 @@
 	<img src="<%= image_url 'circles/closed-circle-red.png' %>"/>
 	This icon means that the job is incomplete, for some reason.
 </p>
+
+</div>

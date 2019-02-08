@@ -1,0 +1,33 @@
+<form action= <%= "/tasks/"+@task.id.to_s %> accept-charset="UTF-8" data-remote="true" method="post">
+	<input name="_method" type="hidden" value="patch" />
+	<input name="utf8" type="hidden" value="✓">
+	<input 
+		type="hidden" 
+		name= <%= setName %>
+		id= <%= setId  %>
+		value="true"
+	>
+	<%= 
+		completedButton = '
+            <input 
+              type="submit" 
+              name="commit" 
+              value="Completed"
+              data-disable-with="Save Task" 
+              class="btn btn-primary logoFont"
+            >'
+        incompleteButton = '
+            <input 
+              type="submit" 
+              name="commit" 
+              value="Incomplete"
+              data-disable-with="Save Task" 
+              class="btn btn-danger logoFont"
+            >'
+        if setButton === "complete"
+        	render html: completedButton.html_safe
+        else
+        	render html: incompleteButton.html_safe
+        end
+	 %>
+</form>
