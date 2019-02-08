@@ -12,8 +12,6 @@ class TaskeesController < ApplicationController
       @taskees = Taskee.all
     end
 
-    # byebug
-    
   end
 
   # def show

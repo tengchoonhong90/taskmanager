@@ -74,3 +74,6 @@ gem 'validates_timeliness', '~> 5.0.0.alpha3'
 
 gem 'bootstrap-modal-rails'
 
+# To pass data from back-end to front-end easily, for rails
+gem "gon", "~> 6.2"
+
