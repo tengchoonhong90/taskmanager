@@ -50,9 +50,9 @@
 
 						<h6 class="card-subtitle mb-2 text-muted innerDesc"> <%= task.task_description %></h6>
 						<p class="card-text">
-						Posted on:
-							<%= (task.created_at).strftime("%d/%m/%Y at %I:%M%p")  %>
-					</p>
+							Posted on:
+								<%= (task.created_at).strftime("%d/%m/%Y at %I:%M%p")  %>
+						</p>
 						<%= link_to 'Show', task_path(task) %>
 						<%= link_to 'Edit', edit_task_path(task) %>
 						<%= link_to 'Destroy', task_path(task),
