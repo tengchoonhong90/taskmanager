@@ -31,23 +31,17 @@
 					<p class="card-text">
 						On: <%= task.created_at %>
 					</p>
+
 					<%= promptIfBidded(task) %> 
-
-					<p><p>
-
-					<%=
-						if task.confirmed 
-							render plain: "Task is confirmed. No changes allowed."
-						end
-					%>
 					
 					<p><p>
 
 					<%=
 						if task.confirmed && userSelected(task)  === true
-							render plain: "Congratulations. You are selected for the task."
+							render html: '<strong class=" alert alert-success d-inline-block">You are selected for this task</strong>'.html_safe
+
 						elsif task.confirmed && userSelected(task)  === false
-							render plain: "Unfortunately, they have chosen to go with someone else."
+							render html: '<strong class=" alert alert-danger d-inline-block">You were not selected for this task</strong>'.html_safe
 						else
 							render partial: "editTaskeeChoice", locals: {task: task}
 						end

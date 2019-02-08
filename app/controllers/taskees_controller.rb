@@ -11,6 +11,8 @@ class TaskeesController < ApplicationController
       @tasks = Task.where.not(user_id: current_user.id)
       @taskees = Taskee.all
     end
+
+    # byebug
     
   end
 

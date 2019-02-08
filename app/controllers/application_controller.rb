@@ -51,12 +51,25 @@ class ApplicationController < ActionController::Base
 		return @taskees.where(:task_id => task.id).length
 	end
 
-	def promptIfBidded(task) 
+	def showBid(task)
 
 		userHasBidded = @taskees.where(:task_id => task.id, :user_id => current_user.id)
 
-		bidded = '<strong class=" alert alert-warning d-inline-block">You have already bidded</strong>' 
-		indicated = '<strong class=" alert alert-warning d-inline-block">You have indicated interest.</strong>'
+		if userHasBidded.exists? === true
+			return @taskees.select(:bid).where(:task_id => task.id, :user_id => current_user.id).first.bid
+		else 
+			return @tasks.select(:price).where(:id => task.id).first.price
+		end
+
+	end
+
+	def promptIfBidded(task) 
+
+		userHasBidded = @taskees.where(:task_id => task.id, :user_id => current_user.id)
+		bidSum = showBid(task).to_s
+
+		bidded = '<strong class=" alert alert-warning d-inline-block">You have bidded $' + bidSum +'0</strong>' 
+		indicated = '<strong class=" alert alert-warning d-inline-block">You have indicated interest</strong>'
 
 		if userHasBidded.exists? === true
 			return task.negotiable === true ? bidded.html_safe : indicated.html_safe
@@ -139,18 +152,6 @@ class ApplicationController < ActionController::Base
 
 	def changeButtonOnConfirmTask(status)
 		return status === true ? "Un-Confirm" : "Confirm"
-	end
-
-	def showBid(task)
-
-		userHasBidded = @taskees.where(:task_id => task.id, :user_id => current_user.id)
-
-		if userHasBidded.exists? === true
-			return @taskees.select(:bid).where(:task_id => task.id, :user_id => current_user.id).first.bid
-		else 
-			return @tasks.select(:price).where(:id => task.id).first.price
-		end
-
 	end
 
 	def bidType(task)
