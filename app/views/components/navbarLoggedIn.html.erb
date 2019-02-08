@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 
-  <a class="navbar-brand logoFont text-success" href="/">TaskManager</a>
+  <a class="navbar-brand logoFont" href="/">TaskManager</a>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -34,17 +34,16 @@
         </span>
       </li>
 
-      <li class="nav-item">
-        <span class="nav-link">
-          <%= link_to 'Log Out', destroy_user_session_url, method: :delete %>
-        </span>
-      </li>
-
-     <li class="nav-item">
+    <li class="nav-item">
         <span class="nav-link">
 		<% if user_signed_in? %>
 		  Logged in as <strong><%= current_user.username %></strong>.
 
+      <li class="nav-item justify-content-end">
+        <span class="nav-link">
+          <%= link_to 'Log Out', destroy_user_session_url, method: :delete %>
+        </span>
+      </li>
 		<% else %>
 		  <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
 		  <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
