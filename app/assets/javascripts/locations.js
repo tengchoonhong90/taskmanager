@@ -255,6 +255,7 @@ function showAll() {
         
     var taskArray = gon.locations;
     var taskeeArray = gon.taskees;
+    var current_user = gon.user;
 
     console.log(taskArray[0])
     console.log(taskeeArray[0])
@@ -263,10 +264,9 @@ function showAll() {
     var infoWindow = new google.maps.InfoWindow(), marker, i;
     
     // Loop through our array of markers & place each one on the map  
-    let placeholder;
     for( let i = 0; i < taskArray.length; i++ ) {
       for( let j = 0; j < taskeeArray.length; j++ ) {
-        if ( taskArray[i].id == taskeeArray[j].task_id ) {
+        if ( taskArray[i].id == taskeeArray[j].task_id && taskArray[i].user_id != current_user) {
           var position = new google.maps.LatLng(taskArray[i].latitude, taskArray[i].longitude);
           bounds.extend(position);
           marker = new google.maps.Marker({
