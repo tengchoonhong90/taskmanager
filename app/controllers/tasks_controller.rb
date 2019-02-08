@@ -55,6 +55,7 @@ class TasksController < ApplicationController
 
   def map
     gon.locations = Task.all
+    gon.taskees = Taskee.all
   end
 
   private
