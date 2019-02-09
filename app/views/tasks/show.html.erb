@@ -135,8 +135,9 @@
                   render partial: "buttonToConcludeTask", locals: {task: @task, setName: "task[incomplete]", setId: "task_incomplete", setButton: "incomplete" }
                 end
               %>
-              <div id="map"></div>
           </div>
+          <%= render partial: "chat", locals: {task: @task, chat: @chats} %>
+          <div id="map"></div>
         </div>
         <br/>
     </div>

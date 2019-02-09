@@ -17,8 +17,11 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @taskees = Taskee.where(:task_id => params[:id])
     # byebug
-    # gon.tasker = current_user.username
-    # gon.taskerId = current_user.id
+    gon.tasker = current_user.username
+    gon.taskerId = current_user.id
+
+    @chats = Chat.all
+    @chat = Chat.new
   end
 
   def new

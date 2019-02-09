@@ -3,6 +3,8 @@ class ChatsController < ApplicationController
   def index
     @chats = Chat.all
     @chat = Chat.new
+    gon.tasker = current_user.username
+    gon.taskerId = current_user.id
   end
 
   def new
@@ -26,5 +28,5 @@ class ChatsController < ApplicationController
     def chat_params
       params.require(:chat).permit(:username, :message)
     end
-    
+
 end
