@@ -19,7 +19,11 @@
         <div class="mainCenter col-10">
             <% if user_signed_in? %>
 
-            <div class="card d-inline-block align-top m-3 col-4" style="width: 20rem;">
+            <div class="card d-inline-block align-top m-3 col-4" style="
+              <%=changeTaskCardBackground(@task) %> 
+              border-width: 5px; 
+              width: 20rem;
+            ">
                 <div class="card-body ">
 
                     <%= showNego(@task.negotiable) %>

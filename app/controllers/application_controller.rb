@@ -203,16 +203,20 @@ class ApplicationController < ActionController::Base
 
 	def cardBackgroundColor(colour)
 
-		green = "background-color: #ebffeb; border-color: #c4ffc4;"
-		yellow = "background-color: #ffffeb; border-color: #ffffb0;"
-		red = "background-color: #ffebeb; border-color: #ffd8d8;"
+		greenBG = "background-color: #ebffeb; border-color: #c4ffc4;"
+		yellowBG = "background-color: #ffffeb; border-color: #ffffb0;"
+		redBG = "background-color: #ffebeb; border-color: #ffd8d8;"
+
+		green = "border-color: rgba(0, 59, 0, 0.2);"
+		orange = "border-color: rgba(255, 191, 0, 0.2);"
+		red = "border-color: rgba(118, 0, 0, 0.2);"
 
 		if colour === "green"
 			return green
 		elsif colour === "red"
 			return red
-		elsif colour === "yellow"
-			return yellow
+		elsif colour === "orange"
+			return orange
 		end
 	end
 
@@ -225,14 +229,14 @@ class ApplicationController < ActionController::Base
 		elsif task.confirmed === true && userSelected(task) === false
 			return cardBackgroundColor("red")
 		elsif userHasBidded.exists? === true
-			return cardBackgroundColor("yellow")
+			return cardBackgroundColor("orange")
 		end
 	end
 
 	def changeTaskCardBackground(task)
 
 		if task.confirmed === true && task.completed === false && task.incomplete === false
-			return cardBackgroundColor("yellow")
+			return cardBackgroundColor("orange")
 		elsif task.confirmed === true && task.completed === true && task.incomplete === false
 			return cardBackgroundColor("green")
 		elsif task.confirmed === true && task.completed === false && task.incomplete === true
