@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
 
-  helper_method :showStatus, :showNego, :numberInterested, :showNavBar, :highlightCurrentPageOnNavBar, :taskeeId, :changeValueOnSelectTaskee, :changeButtonOnSelectTaskee, :changeValueOnConfirmTask, :changeButtonOnConfirmTask, :showSelectedTaskeeCard
+  helper_method :showStatus, :showNego, :numberInterested, :showNavBar, :highlightCurrentPageOnNavBar, :taskeeId, :changeValueOnSelectTaskee, :changeButtonOnSelectTaskee, :changeValueOnConfirmTask, :changeButtonOnConfirmTask, :showSelectedTaskeeCard, :successfulSelection, :changeTaskCardBackground, :taskStatusUpdate
 
   def index
 

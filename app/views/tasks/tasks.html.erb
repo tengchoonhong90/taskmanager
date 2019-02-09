@@ -1,6 +1,6 @@
 <%= showNavBar %>
 
-<h1 class="logoFont d-inline-block align-middle" style="margin:0;">Here are all your tasks.</h1>
+<h1 class="titleFont d-inline-block align-middle" style="margin:0;">Here are all your tasks.</h1>
 
 <%= render template: "components/infoOnIcons" %>
 
@@ -10,29 +10,48 @@
 	<div>
 		<% if user_signed_in? %>
 			<% @tasks.each do |task| %>
-				<div class="card d-inline-block align-top m-3" style="width: 20rem;">
+				<div 
+					class="card d-inline-block align-top m-3 grow" 
+					style="<%=changeTaskCardBackground(task) %> border-width: 5px; width: 20rem;"
+				>
 					<div class="card-body">
-						<img
-							src="<%= image_url showStatus(task) %>"
-							class="position-relative float-right"
-						/>
-						<h5 class="card-title  titleFont">
+
+						<%= showNego(task.negotiable) %>
+							<%= number_to_currency(task.price) %>
+						</h5>
+
+						<h5 class="card-title titleFont">
 							<%= task.task_name %>
-						</h5>
+						</h5>			
+						
 						<h5 class="card-text">
-							<span class = "text-success titleFont">
-								<%= number_to_currency(task.price) %>
-							</span>
-							<%= showNego(task.negotiable) %>
+							<%= (task.start_time).strftime("%d/%m/%Y ")  %>
+							<br>
+							<%= (task.start_time).strftime("at %I:%M%p")  %>
 						</h5>
-						<h5 class="card-title">Address: <%= task.location %></h5>
-						<strong class=" alert alert-warning d-inline-block">There are <%= numberInterested(task) %> interested parties.</strong>
-						<p class="card-text">Start Time:
-								<%= task.start_time %>
+
+						<p class="card-title text-muted">
+							<small>
+								<%= task.location %>
+							</small>
 						</p>
+
+						<strong class=" alert alert-warning d-inline-block">
+							<%= 
+								if taskStatusUpdate(task)==="completed"
+									render plain: 'This task was completed'
+								elsif taskStatusUpdate(task) === "incomplete" 
+									render plain: 'This task was not completed'
+								else 
+									render partial: "taskStatusUpdate", locals: {task: task}
+								end
+							%>
+						</strong>
+
 						<h6 class="card-subtitle mb-2 text-muted innerDesc"> <%= task.task_description %></h6>
-						<p class="card-text">Created on:
-								<%= task.created_at %>
+						<p class="card-text">
+							Posted on:
+								<%= (task.created_at).strftime("%d/%m/%Y at %I:%M%p")  %>
 						</p>
 						<%= link_to 'Show', task_path(task) %>
 						<%= link_to 'Edit', edit_task_path(task) %>
