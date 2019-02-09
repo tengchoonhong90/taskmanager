@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
 	devise_for :users
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
@@ -23,5 +24,8 @@ Rails.application.routes.draw do
 	patch '/taskees/:id' => 'taskees#update'
 	delete '/taskees/:id' => 'taskees#destroy'
 	get '/map' => 'taskees#map'
+
+	resources :chats
+    root 'chats#index'
 
 end
