@@ -20,7 +20,7 @@ class TasksController < ApplicationController
     gon.tasker = current_user.username
     gon.taskerId = current_user.id
 
-    @chats = Chat.all
+    @chats = Chat.where(:task_id => params[:id])
     @chat = Chat.new
   end
 

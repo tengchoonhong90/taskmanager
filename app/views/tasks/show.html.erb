@@ -136,7 +136,7 @@
                 end
               %>
           </div>
-          <%= render partial: "chat", locals: {task: @task, chat: @chats} %>
+          <%= render partial: "chat", locals: {taskId: @task.id, chat: @chats} %>
           <div id="map"></div>
         </div>
         <br/>

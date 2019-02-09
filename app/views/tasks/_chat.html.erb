@@ -30,6 +30,12 @@
                 <div class="field position-relative">
                   <%= form.text_field :message, id: :message, class: "form-control", required: true %>
                   <%= form.hidden_field :username, id: :username %>
+                  <input 
+                    type="hidden" 
+                    name="chat[task_id]" 
+                    id="task_id" 
+                    value=<%= taskId %> 
+                  >
                 </div>
               <% end %>
             </div>
