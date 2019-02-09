@@ -144,10 +144,10 @@ class ApplicationController < ActionController::Base
 	def changeButtonOnSelectTaskee(status)
 			unselect=	
 				'value="Un-select"  
-				class="btn btn-warning titleFont"'
+				class="btn btn-warning titleFont grow"'
 			select=
 				'value="Select"  
-				class="btn btn-success titleFont"'
+				class="btn btn-success titleFont grow"'
 		return status === true ? unselect.html_safe : select.html_safe
 	end
 
@@ -174,10 +174,10 @@ class ApplicationController < ActionController::Base
 
 	def buttonIfBid(task) 
 
-		indicatedForNotNegotiable = '<input type="submit" name="commit" value="Undo Indication" data-disable-with="Save Task" class="btn btn-warning titleFont">'
-		notNegotiable = '<input type="submit" name="commit" value="Indicate Interest" data-disable-with="Save Task" class="btn btn-success titleFont">'
-		bidded = '<input type="submit" name="commit" value="Change Bid ($)" data-disable-with="Save Task" class="btn btn-success titleFont">'
-		notBidded = '<input type="submit" name="commit" value="Bid for Task ($)" data-disable-with="Save Task" class="btn btn-success titleFont">'
+		indicatedForNotNegotiable = '<input type="submit" name="commit" value="Undo Indication" data-disable-with="Save Task" class="btn btn-warning titleFont grow">'
+		notNegotiable = '<input type="submit" name="commit" value="Indicate Interest" data-disable-with="Save Task" class="btn btn-success titleFont grow">'
+		bidded = '<input type="submit" name="commit" value="Change Bid ($)" data-disable-with="Save Task" class="btn btn-success titleFont grow">'
+		notBidded = '<input type="submit" name="commit" value="Bid for Task ($)" data-disable-with="Save Task" class="btn btn-success titleFont grow">'
 
 		userHasBidded = @taskees.where(:task_id => task.id, :user_id => current_user.id)
 
