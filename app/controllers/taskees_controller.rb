@@ -14,9 +14,19 @@ class TaskeesController < ApplicationController
 
   end
 
-  # def show
-  #   @taskee = Taskee.find(params[:id])
-  # end
+  def show
+
+    @taskees = Taskee.where(id: params[:id] )
+    @tasks = Task.where(id: @taskees.first.task_id)
+    
+    gon.tasker = current_user.username
+    gon.taskId = @tasks.first.id
+
+    @chats = Chat.where(:task_id => @tasks.first.id).order(:created_at)
+    @chat = Chat.new
+
+    
+  end
 
   def new
 

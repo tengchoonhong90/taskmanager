@@ -4,7 +4,6 @@ class ChatsController < ApplicationController
     @chats = Chat.all
     @chat = Chat.new
     gon.tasker = current_user.username
-    gon.taskerId = current_user.id
   end
 
   def new

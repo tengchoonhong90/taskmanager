@@ -7,7 +7,8 @@
     }
 
     .full-height {
-     height: 100vh;
+     height: 50vh;
+     width: 60vw;
      overflow: hidden;
     }
 
@@ -20,13 +21,16 @@
     }
 
     .chat-box {
-      height: 94vh;
-      overflow: scroll;
+      height: 40vh;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
 
     .chat {
       border-radius: 3px;
       padding: 0rem 2rem 0 1rem;
+      max-width: 100%;
+      height: auto;
     }
 
     .chat-username {
@@ -35,4 +39,5 @@
 
     .chat-message {
       font-size: 0.85rem;
+      text-align: justify;
     }
