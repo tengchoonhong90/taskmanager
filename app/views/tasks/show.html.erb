@@ -92,8 +92,10 @@
                       %>
 
                       <%= 
-                        if taskee.selected === true && @task.confirmed === true
-                          render plain: "You may review this taskee"
+                        if taskee.selected === true && @task.confirmed === true && @task.completed === true || @task.incomplete === true
+                          render partial: "reviewingTaskee", locals: {taskee: taskee, task: @task}
+                        elsif taskee.selected === true && @task.confirmed === true
+                          render plain: "You may review this taskee only after concluding the task below."
                         end
                       %>
 

@@ -1,16 +1,32 @@
-<form action= <%= "/taskees/"+taskee.id.to_s %> accept-charset="UTF-8" data-remote="true" method="post">
-    <input name="_method" type="hidden" value="patch" />
+<form action= "/reputations" accept-charset="UTF-8" data-remote="true" method="post">
     <input name="utf8" type="hidden" value="✓">
     <input 
 		type="hidden" 
-		name="taskee[selected]" 
-		id="taskee_selected" 
-		value=<%= changeValueOnSelectTaskee(taskee.selected) %> 
+		name="reputation[user_id]" 
+		id="reputation_user_id" 
+		value=<%= taskee.user_id %> 
     >
+    <input 
+		type="hidden" 
+		name="reputation[task_id]" 
+		id="reputation_task_id" 
+		value=<%= task.id %> 
+    >
+
+    1<input 
+	    type="range" 
+	    name="reputation[rep]" 
+		id="reputation_rep"
+		min="1" 
+		max="5" 
+	    value="3"
+    >5
+
     <input 
 		type="submit" 
 		name="commit" 
-		<%= changeButtonOnSelectTaskee(taskee.selected) %>  
+		value="Review Taskee"  
+		class="btn btn-success titleFont grow"  
 		data-disable-with="Save Task" 
     >
 </form>

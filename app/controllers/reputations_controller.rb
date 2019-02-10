@@ -17,7 +17,7 @@ class ReputationsController < ApplicationController
 	end
 
 	def create
-		@reputation = reputation.new(reputation_params)
+		@reputation = Reputation.new(reputation_params)
 		# @reputation.user_id = current_user.id
 		if @reputation.save
 			redirect_back(fallback_location: root_path)
@@ -42,7 +42,7 @@ class ReputationsController < ApplicationController
 
 	private
 	def reputation_params
-		params.require(:reputation).permit(:user_id, :rep)
+		params.require(:reputation).permit(:user_id, :task_id, :rep)
 	end
 
 end
