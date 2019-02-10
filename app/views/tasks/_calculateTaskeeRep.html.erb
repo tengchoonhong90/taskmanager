@@ -1,0 +1,9 @@
+<%=
+	if reputation.exists?(user_id: taskee.user_id) === true
+		# reputations = @reputations.select(:rep).where user_id => taskee.user_id)
+		taskeeRep = @reputations.where(user_id: 2).average(:rep).to_s
+		render plain:"("+ taskeeRep +"/5)"
+	else
+		render plain:"(Un-reviewed)"
+	end
+%>

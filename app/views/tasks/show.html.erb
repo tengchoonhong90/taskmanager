@@ -75,15 +75,25 @@
 
             <div class = "col-6 d-inline-block mt-3">
               <% @taskees.each do |taskee| %>
-                <div class="col-6 card p-0">
+                <div class="col-8 card p-0">
                     <%= showSelectedTaskeeCard(taskee.selected) %>
-                      <%= 
-                        if @task.negotiable === true
-                          render partial: "showBidding", locals: {taskee: taskee}
-                        else
-                          render partial: "showIndicating", locals: {taskee: taskee}
-                        end
-                      %>
+
+                      <p>
+                          <strong>
+                            <%= taskee.user.username %>
+                          </strong> 
+                          <%=
+                            render partial: "calculateTaskeeRep", locals: {taskee: taskee, reputation: @reputations}
+                          %>
+                          <%= 
+                            if @task.negotiable === true
+                              render partial: "showBidding", locals: {taskee: taskee}
+                            else
+                              render plain: "has indicated interest."
+                            end
+                          %>
+                      </p>
+                      
 
                       <%= 
                         if @task.confirmed != true
@@ -92,7 +102,9 @@
                       %>
 
                       <%= 
-                        if taskee.selected === true && @task.confirmed === true && @task.completed === true || @task.incomplete === true
+                        if @reputations.where(:task_id => @task.id, :user_id => taskee.user_id).exists? === true
+                          render plain: "You have reviewed this taskee."
+                        elsif taskee.selected === true && @task.confirmed === true && @task.completed === true || @task.incomplete === true
                           render partial: "reviewingTaskee", locals: {taskee: taskee, task: @task}
                         elsif taskee.selected === true && @task.confirmed === true
                           render plain: "You may review this taskee only after concluding the task below."

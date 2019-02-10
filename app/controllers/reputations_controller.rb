@@ -5,7 +5,7 @@ class ReputationsController < ApplicationController
 	end
 
 	def show
-		@reputations = reputation.all
+		@reputations = Reputation.all
 	end
 
 	def new

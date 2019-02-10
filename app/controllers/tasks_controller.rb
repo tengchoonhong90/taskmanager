@@ -20,6 +20,8 @@ class TasksController < ApplicationController
     gon.tasker = current_user.username
     gon.taskId = Task.find(params[:id]).id
 
+    @reputations = Reputation.all
+
     @chats = Chat.where(:task_id => params[:id]).order(:created_at)
     @chat = Chat.new
 
