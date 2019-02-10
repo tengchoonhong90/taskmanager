@@ -25,8 +25,9 @@
               width: 20rem;
             ">
                 <div class="card-body ">
-
-                    <%= showNego(@task.negotiable) %>
+                  
+                    <h5 class="card-text position-relative float-right titleFont text-white bg-dark rounded p-1 ml-3">
+                      <%= showNego(@task.negotiable) %>
                       <%= number_to_currency(@task.price) %>
                     </h5>
 

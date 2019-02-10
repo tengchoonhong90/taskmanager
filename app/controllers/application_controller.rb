@@ -42,12 +42,9 @@ class ApplicationController < ActionController::Base
 	end
 
 	def showNego(status)
-		notNegotiable = '<h5 class="card-text position-relative float-right titleFont text-white rounded p-1 ml-3" style="background-color: #3b0000;">'
-		negotiable = '<h5 class="card-text position-relative float-right titleFont text-white rounded p-1 ml-3" style="background-color: #00003b;">'
+		negotiable = '≈'
 		if status === true
-			return negotiable.html_safe
-		else
-			return notNegotiable.html_safe
+			return negotiable
 		end
 	end
 
