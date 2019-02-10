@@ -61,11 +61,11 @@
 
 				<div class="col-6 d-inline-block">
 
-					<%= render partial: "chat", locals: {taskId: task.id, chat: chat} %>
-				
-					<button type="button" class="btn btn-secondary block titlefont" data-dismiss="modal">
-						x
+					<button type="button" class="btn btn-secondary block titlefont mt-3 float-right" data-dismiss="modal">
+						Close
 					</button>
+
+					<%= render partial: "chat", locals: {taskId: task.id, chat: chat} %>
 
 				</div>
 			</div>

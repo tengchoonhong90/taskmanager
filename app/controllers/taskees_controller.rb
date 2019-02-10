@@ -11,13 +11,8 @@ class TaskeesController < ApplicationController
     @chats = Chat.all
     @chat = Chat.new
 
-    if params.has_key?(:id)
-      @taskees = Taskee.where(id: params[:id] )
-      @tasks = Task.where(id: @taskees.first.task_id)
-    else
-      @tasks = Task.where.not(user_id: current_user.id)
-      @taskees = Taskee.all
-    end
+    @tasks = Task.where.not(user_id: current_user.id)
+    @taskees = Taskee.all
 
   end
 

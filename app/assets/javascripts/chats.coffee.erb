@@ -13,8 +13,6 @@ $(document).ready =>
         updateChat data.detail[0]
         return
 
-        condition = 'if data.task_id == gon.taskId'
-
       updateChat = (data) ->
 	      if data.task_id == gon.taskId
 	        $('.chat-box').append """
