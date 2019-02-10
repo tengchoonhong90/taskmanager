@@ -1,4 +1,4 @@
-<div class="col-6 d-inline-block">
+<div class="col-6 d-inline-block mt-3">
       <div class="row">
         <div class="bg-light full-height">
           <div class="container-fluid">
@@ -28,7 +28,7 @@
                   </div>
                 <% end %>
                 <div class="field position-relative">
-                  <%= form.text_field :message, id: :message, class: "form-control", required: true %>
+                  <%= form.text_field :message, id: :message, class: "form-control grow bg-dark text-white mt-1", required: true, placeholder: "Chat here..." %>
                   <%= form.hidden_field :username, id: :username %>
                   <input 
                     type="hidden" 

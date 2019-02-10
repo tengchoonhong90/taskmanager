@@ -72,9 +72,9 @@
             </div>
             <% end %>
 
-            <div class = "col-4 d-inline-block">
+            <div class = "col-6 d-inline-block mt-3">
               <% @taskees.each do |taskee| %>
-                <div class="card">
+                <div class="col-6 card p-0">
                     <%= showSelectedTaskeeCard(taskee.selected) %>
                       <%= 
                         if @task.negotiable === true
@@ -107,7 +107,7 @@
                 confirmedTask = @task.confirmed
                 if selectedTaskee === true 
                   if confirmedTask === true
-                    render html: '<strong class=" alert alert-warning d-inline-block">Task Confirmed</strong>'.html_safe
+                    render html: '<strong class=" alert alert-warning d-inline-block mt-3">Task Confirmed</strong>'.html_safe
                   else
                     render partial: "buttonToConfirmTaskee", locals: {task: @task}
                   end

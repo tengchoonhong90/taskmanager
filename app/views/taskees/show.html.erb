@@ -50,11 +50,13 @@
 					</h6>
 
 					<p class="card-text">
-						Posted by: <strong>
-							<%= task.user.username %></strong>
-							<br>
-						on:
-							<%= (task.created_at).strftime("%d/%m/%Y at %I:%M%p")  %>
+						<small>
+							Posted by: <strong>
+								<%= task.user.username %></strong>
+								<br>
+							on:
+								<%= (task.created_at).strftime("%d/%m/%Y at %I:%M%p")  %>
+						</small>
 					</p>
 
 					<%= promptIfBidded(task) %>

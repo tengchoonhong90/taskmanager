@@ -8,6 +8,9 @@ class TaskeesController < ApplicationController
 
     gon.tasker = current_user.username
 
+    @chats = Chat.all
+    @chat = Chat.new
+
     if params.has_key?(:id)
       @taskees = Taskee.where(id: params[:id] )
       @tasks = Task.where(id: @taskees.first.task_id)
