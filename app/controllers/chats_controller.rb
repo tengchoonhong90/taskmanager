@@ -1,9 +1,11 @@
 class ChatsController < ApplicationController
   
   def index
-    @chats = Chat.all
-    @chat = Chat.new
-    gon.tasker = current_user.username
+    if user_signed_in?
+      @chats = Chat.all
+      @chat = Chat.new
+      gon.tasker = current_user.username
+    end
   end
 
   def new

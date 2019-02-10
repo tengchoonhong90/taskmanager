@@ -71,7 +71,7 @@ class ApplicationController < ActionController::Base
 
 		userHasBidded = @taskees.where(:task_id => task.id, :user_id => current_user.id)
 		bidSum = showBid(task)
-		bidSumCurrency = view_context.number_to_currency(bidSum)
+		bidSumCurrency = number_to_currency(bidSum).to_s
 
 		bidded = '<strong class=" alert alert-warning d-inline-block">You have bidded ' + bidSumCurrency +'</strong>' 
 		indicated = '<strong class=" alert alert-warning d-inline-block">You have indicated interest</strong>'

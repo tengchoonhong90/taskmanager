@@ -2,6 +2,8 @@ class TaskeesController < ApplicationController
 
   helper_method :showStatus, :showNego, :promptIfBidded, :taskeeId, :changeFormMethodOnBid, :showBid, :bidType, :buttonIfBid, :showNavBar, :showUndoBid, :highlightCurrentPageOnNavBar, :changeValueOnSelectTaskee, :userSelected, :successfulSelection, :changeTaskeeCardBackground
 
+  include ActionView::Helpers::NumberHelper
+
 	def index
 
     if params.has_key?(:id)
