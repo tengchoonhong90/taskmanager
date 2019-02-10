@@ -6,6 +6,8 @@ class TaskeesController < ApplicationController
 
 	def index
 
+    gon.tasker = current_user.username
+
     if params.has_key?(:id)
       @taskees = Taskee.where(id: params[:id] )
       @tasks = Task.where(id: @taskees.first.task_id)
