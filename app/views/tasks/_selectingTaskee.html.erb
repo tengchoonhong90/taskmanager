@@ -1,0 +1,16 @@
+<form action= <%= "/taskees/"+taskee.id.to_s %> accept-charset="UTF-8" data-remote="true" method="post">
+    <input name="_method" type="hidden" value="patch" />
+    <input name="utf8" type="hidden" value="✓">
+    <input 
+		type="hidden" 
+		name="taskee[selected]" 
+		id="taskee_selected" 
+		value=<%= changeValueOnSelectTaskee(taskee.selected) %> 
+    >
+    <input 
+		type="submit" 
+		name="commit" 
+		<%= changeButtonOnSelectTaskee(taskee.selected) %>  
+		data-disable-with="Save Task" 
+    >
+</form>

@@ -25,6 +25,8 @@ Rails.application.routes.draw do
 	delete '/taskees/:id' => 'taskees#destroy'
 	get '/map' => 'taskees#map'
 
+	post '/reputations' => 'reputations#create'
+
 	resources :chats
     root 'chats#index'
 

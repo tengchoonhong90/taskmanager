@@ -25,7 +25,7 @@
               width: 20rem;
             ">
                 <div class="card-body ">
-                  
+
                     <h5 class="card-text position-relative float-right titleFont text-white bg-dark rounded p-1 ml-3">
                       <%= showNego(@task.negotiable) %>
                       <%= number_to_currency(@task.price) %>
@@ -84,22 +84,19 @@
                           render partial: "showIndicating", locals: {taskee: taskee}
                         end
                       %>
-                      <form action= <%= "/taskees/"+taskee.id.to_s %> accept-charset="UTF-8" data-remote="true" method="post">
-                        <input name="_method" type="hidden" value="patch" />
-                        <input name="utf8" type="hidden" value="✓">
-                        <input 
-                          type="hidden" 
-                          name="taskee[selected]" 
-                          id="taskee_selected" 
-                          value=<%= changeValueOnSelectTaskee(taskee.selected) %> 
-                        >
-                        <input 
-                          type="submit" 
-                          name="commit" 
-                          <%= changeButtonOnSelectTaskee(taskee.selected) %>  
-                          data-disable-with="Save Task" 
-                          >
-                      </form>
+
+                      <%= 
+                        if @task.confirmed != true
+                          render partial: "selectingTaskee", locals: {taskee: taskee}
+                        end
+                      %>
+
+                      <%= 
+                        if taskee.selected === true && @task.confirmed === true
+                          render plain: "You may review this taskee"
+                        end
+                      %>
+
                     </div>
                 </div>
               <% end %>
