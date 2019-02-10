@@ -159,6 +159,10 @@ class ApplicationController < ActionController::Base
 		return status === true ? "Un-Confirm" : "Confirm"
 	end
 
+	def modalDataTarget(taskId)
+		return 'data-target=#chatModal'+taskId.to_s
+	end
+
 	def bidType(task)
 		return task.negotiable ? "number" : "hidden"
 	end

@@ -82,7 +82,9 @@
 
 			</div>
 
-			<%= render partial: "chat", locals: {taskId: task.id, chat: @chats} %>
+			<div class="d-inline-block col-8">
+				<%= render partial: "chat", locals: {taskId: task.id, chat: @chats} %>
+			</div>
 
 			<% end %>
 			

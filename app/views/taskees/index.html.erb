@@ -3,7 +3,6 @@
 <div>
 	<div class="mainCenter">
 
-
 	<h1 class="titleFont d-inline-block align-middle" style="margin:0;">Here are the available tasks.</h1>
 
 	<%= render template: "components/infoOnIcons" %>
@@ -78,13 +77,15 @@
 						end
 					%>
 					
-				</div>
+				</div>				
 			</div>
 			<% end %>
-			
-					<div id="map"></div>
-			
+			<div id="map"></div>
 		</div>
-		<br />
+		<div>
+			<% @tasks.each do |task| %>
+				<%= render partial: "chatModal", locals: {task: task, chat: @chats, chatModal: 'chatModal'+task.id.to_s } %>
+			<% end %>
+		</div>
 	</div>
 </div>
