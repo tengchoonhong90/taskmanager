@@ -37,12 +37,12 @@
 	font-weight: bold;
 }
 
-.grow { 
-	transition: all .2s ease-in-out; 
+.grow {
+	transition: all .2s ease-in-out;
 }
 
-.grow:hover { 
-	transform: scale(1.05); 
+.grow:hover {
+	transform: scale(1.05);
 }
 
 .tooltip .tooltiptext {
@@ -97,11 +97,11 @@
 		text-align: center;
 
 
-				        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
+    display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
 
 	}

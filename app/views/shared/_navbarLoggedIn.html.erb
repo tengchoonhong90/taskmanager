@@ -9,30 +9,28 @@
 
   <div class="nav nav-pills" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li>
+
         <a class="nav-link" href="/new">New Task</a>
       </li>
-      <li>
+
         <a class="nav-link" href="/tasks">Your Tasks</a>
       </li>
-      <li>
+
         <a class="nav-link" href="/taskees"><strong>Make Money</strong></a>
       </li>
-      <li>
+
         <a class="nav-link" href="/map">See Map</a>
       </li>
+      
       <li class="nav-item">
-        <a class="nav-link" href="#">Profile</a>
+      <span class="nav-link">
+        <%= link_to "Profile", current_user %>
+     </span>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Messages</a>
       </li>
 
-      <li class="nav-item">
-        <span class="nav-link">
-		  <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %>
-        </span>
-      </li>
 
     <li class="nav-item">
         <span class="nav-link">
