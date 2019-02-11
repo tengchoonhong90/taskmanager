@@ -25,10 +25,13 @@ class TasksController < ApplicationController
     @chats = Chat.where(:task_id => params[:id]).order(:created_at)
     @chat = Chat.new
 
+
+
     # byebug
   end
 
   def new
+    
 
   end
 
