@@ -21,9 +21,9 @@ class ApplicationController < ActionController::Base
 
   	def showNavBar
   		if user_signed_in?
-			render template: "components/navbarLoggedIn"
+			render partial: "navbarLoggedIn"
 		else
-			render template: "components/navbarNewUser"
+			render partial: "navbarNewUser"
 		end
 	end
 
