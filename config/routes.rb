@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :locations
+
 	devise_for :users
   resources :users, :only => [:show]
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -20,12 +20,14 @@ Rails.application.routes.draw do
 	get '/new/taskees' => 'taskees#new', as: 'new_taskee'
 	get '/find/taskees' => 'taskees#find'
 	post '/taskees' => 'taskees#create'
-	get '/taskees/:id' => 'taskees#index' , as: 'taskee'
+	get '/taskees/:id' => 'taskees#show' , as: 'taskee'
 	get '/taskees/:id/edit' => 'taskees#edit', as: 'edit_taskee'
 	patch '/taskees/:id' => 'taskees#update'
 	delete '/taskees/:id' => 'taskees#destroy'
 	get '/map' => 'taskees#map'
+	post '/reputations' => 'reputations#create'
 
-  get '/profiles' => 'profiles#show', as: 'profiles'
+	resources :chats
+    root 'chats#index'
 
 end

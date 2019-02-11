@@ -77,3 +77,6 @@ gem 'bootstrap-modal-rails'
 # To pass data from back-end to front-end easily, for rails
 gem "gon", "~> 6.2"
 
+# chat
+gem 'pusher'
+gem 'figaro'

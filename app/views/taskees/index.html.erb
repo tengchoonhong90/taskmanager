@@ -1,10 +1,7 @@
-<%= showNavBar %>
-
 <div>
 	<div class="mainCenter">
 
-
-	<h1 class="logoFont d-inline-block align-middle" style="margin:0;">Here are the available tasks.</h1>
+	<h1 class="titleFont d-inline-block align-middle ml-5" style="margin:0;">Here are the available tasks.</h1>
 
 	<%= render template: "components/infoOnIcons" %>
 
@@ -19,49 +16,60 @@
 				});
 			</script>
 			<% end %>
-			<div class="card d-inline-block align-top m-3" style="width: 20rem;">
+			<div 
+				class="card d-inline-block align-top m-3 grow" 
+				style="<%=changeTaskeeCardBackground(task) %> border-width: 5px; width: 20rem;"
+			>
 				<div class="card-body">
 
-					<img 
-						src="<%= image_url showStatus(task) %>" 
-						class="position-relative float-right"
-					/>
+					<h5 class="card-text position-relative float-right titleFont text-white bg-dark rounded p-1 ml-3">
+						<%= showNego(task.negotiable) %>
+						<%= number_to_currency(task.price) %>
+					</h5>
+					
 					<h5 class="card-title titleFont">
 						<%= task.task_name %>
-					</h5>
+					</h5>			
+					
 					<h5 class="card-text">
-						<span class = "text-success titleFont">
-							<%= number_to_currency(task.price) %>
-						</span>
-						<%= showNego(task.negotiable) %>
-					</h5>
-					<h5 class="card-title">
-						Address: <%= task.location %>
+						<%= (task.start_time).strftime("%d/%m/%Y ")  %>
+						<br>
+						<%= (task.start_time).strftime("at %I:%M%p")  %>
 					</h5>
 
-					<p class="card-text">Start Time:
-						<%= task.start_time %>
+					<p class="card-title">
+						<small>
+							<a 
+								href="http://maps.google.com/?q=<%= task.location %>" 
+								target="_blank" 
+								style="text-decoration: none;" 
+								class="btn btn-outline-secondary btn-sm grow">
+								<%= task.location %>
+							</a>
+						</small>
 					</p>
+
 					<h6 class="card-subtitle mb-2 text-muted innerDesc">
 						<%= task.task_description %>
 					</h6>
 
 					<p class="card-text">
-						Posted by: <strong>
-							<%= task.user.username %></strong>
-					</p>
-					<p class="card-text">
-						On:
-						<%= task.created_at %>
+						<small>
+							Posted by: <strong>
+								<%= task.user.username %></strong>
+								<br>
+							on:
+								<%= (task.created_at).strftime("%d/%m/%Y at %I:%M%p")  %>
+						</small>
 					</p>
 
 					<%= promptIfBidded(task) %>
 
 					<%=
-						if task.confirmed && userSelected(task)  === true
+						if successfulSelection(task)  === true
 							render html: '<strong class=" alert alert-success d-inline-block">You are selected for this task</strong>'.html_safe
 
-						elsif task.confirmed && userSelected(task)  === false
+						elsif task.confirmed === true && userSelected(task) === false
 							render html: '<strong class=" alert alert-danger d-inline-block">You were not selected for this task</strong>'.html_safe
 						else
 							render partial: "editTaskeeChoice", locals: {task: task}
@@ -69,18 +77,20 @@
 					%>
 	
 					<%=
-						if task.confirmed && userSelected(task)  === true
+						if successfulSelection(task)  === true
 							render partial: "buttonOnDoneTask", locals: {task: task}
 						end
 					%>
 					
-				</div>
+				</div>				
 			</div>
 			<% end %>
-			
-					<div id="map"></div>
-			
+			<div id="map"></div>
 		</div>
-		<br />
+		<div>
+			<% @tasks.each do |task| %>
+				<%= render partial: "chatModal", locals: {task: task, chat: @chats.where(:task_id => task.id).order(:created_at), chatModal: 'chatModal'+task.id.to_s } %>
+			<% end %>
+		</div>
 	</div>
 </div>

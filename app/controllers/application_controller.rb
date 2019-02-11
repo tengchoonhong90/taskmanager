@@ -21,9 +21,9 @@ class ApplicationController < ActionController::Base
 
   	def showNavBar
   		if user_signed_in?
-			render template: "components/navbarLoggedIn"
+			render partial: "navbarLoggedIn"
 		else
-			render template: "components/navbarNewUser"
+			render partial: "navbarNewUser"
 		end
 	end
 
@@ -42,8 +42,9 @@ class ApplicationController < ActionController::Base
 	end
 
 	def showNego(status)
+		negotiable = '≈'
 		if status === true
-			return '(Negotiable)'
+			return negotiable
 		end
 	end
 
@@ -66,9 +67,10 @@ class ApplicationController < ActionController::Base
 	def promptIfBidded(task) 
 
 		userHasBidded = @taskees.where(:task_id => task.id, :user_id => current_user.id)
-		bidSum = showBid(task).to_s
+		bidSum = showBid(task)
+		bidSumCurrency = number_to_currency(bidSum).to_s
 
-		bidded = '<strong class=" alert alert-warning d-inline-block">You have bidded $' + bidSum +'0</strong>' 
+		bidded = '<strong class=" alert alert-warning d-inline-block">You have bidded ' + bidSumCurrency +'</strong>' 
 		indicated = '<strong class=" alert alert-warning d-inline-block">You have indicated interest</strong>'
 
 		if userHasBidded.exists? === true
@@ -139,10 +141,10 @@ class ApplicationController < ActionController::Base
 	def changeButtonOnSelectTaskee(status)
 			unselect=	
 				'value="Un-select"  
-				class="btn btn-warning logoFont"'
+				class="btn btn-warning titleFont grow"'
 			select=
 				'value="Select"  
-				class="btn btn-success logoFont"'
+				class="btn btn-success titleFont grow"'
 		return status === true ? unselect.html_safe : select.html_safe
 	end
 
@@ -152,6 +154,10 @@ class ApplicationController < ActionController::Base
 
 	def changeButtonOnConfirmTask(status)
 		return status === true ? "Un-Confirm" : "Confirm"
+	end
+
+	def modalDataTarget(taskId)
+		return 'data-target=#chatModal'+taskId.to_s
 	end
 
 	def bidType(task)
@@ -169,10 +175,10 @@ class ApplicationController < ActionController::Base
 
 	def buttonIfBid(task) 
 
-		indicatedForNotNegotiable = '<input type="submit" name="commit" value="Undo Indication" data-disable-with="Save Task" class="btn btn-warning logoFont">'
-		notNegotiable = '<input type="submit" name="commit" value="Indicate Interest" data-disable-with="Save Task" class="btn btn-success logoFont">'
-		bidded = '<input type="submit" name="commit" value="Change Bid ($)" data-disable-with="Save Task" class="btn btn-success logoFont">'
-		notBidded = '<input type="submit" name="commit" value="Bid for Task ($)" data-disable-with="Save Task" class="btn btn-success logoFont">'
+		indicatedForNotNegotiable = '<input type="submit" name="commit" value="Undo Indication" data-disable-with="Save Task" class="btn btn-warning titleFont grow">'
+		notNegotiable = '<input type="submit" name="commit" value="Indicate Interest" data-disable-with="Save Task" class="btn btn-success titleFont grow">'
+		bidded = '<input type="submit" name="commit" value="Change Bid ($)" data-disable-with="Save Task" class="btn btn-success titleFont grow">'
+		notBidded = '<input type="submit" name="commit" value="Bid for Task ($)" data-disable-with="Save Task" class="btn btn-success titleFont grow">'
 
 		userHasBidded = @taskees.where(:task_id => task.id, :user_id => current_user.id)
 
@@ -190,6 +196,64 @@ class ApplicationController < ActionController::Base
 			end
 		end
 
+	end
+
+	def successfulSelection(task)
+		return task.confirmed && userSelected(task)
+	end
+
+	def cardBackgroundColor(colour)
+
+		greenBG = "background-color: #ebffeb; border-color: #c4ffc4;"
+		yellowBG = "background-color: #ffffeb; border-color: #ffffb0;"
+		redBG = "background-color: #ffebeb; border-color: #ffd8d8;"
+
+		green = "border-color: rgba(0, 59, 0, 0.2);"
+		orange = "border-color: rgba(255, 191, 0, 0.2);"
+		red = "border-color: rgba(118, 0, 0, 0.2);"
+
+		if colour === "green"
+			return green
+		elsif colour === "red"
+			return red
+		elsif colour === "orange"
+			return orange
+		end
+	end
+
+	def changeTaskeeCardBackground(task)
+
+		userHasBidded = @taskees.where(:task_id => task.id, :user_id => current_user.id)
+
+		if successfulSelection(task) === true
+			return cardBackgroundColor("green")
+		elsif task.confirmed === true && userSelected(task) === false
+			return cardBackgroundColor("red")
+		elsif userHasBidded.exists? === true
+			return cardBackgroundColor("orange")
+		end
+	end
+
+	def changeTaskCardBackground(task)
+
+		if task.confirmed === true && task.completed === false && task.incomplete === false
+			return cardBackgroundColor("orange")
+		elsif task.confirmed === true && task.completed === true && task.incomplete === false
+			return cardBackgroundColor("green")
+		elsif task.confirmed === true && task.completed === false && task.incomplete === true
+			return cardBackgroundColor("red")
+		end
+
+	end
+
+	def taskStatusUpdate(task)
+		if task.confirmed === true && task.completed === true && task.incomplete === false
+			return "completed"
+		elsif task.confirmed === true && task.completed === false && task.incomplete === true
+			return "incomplete"
+		else 
+			return "showInterestedParties"
+		end
 	end
 
 end

@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
 
-  helper_method :showStatus, :showNego, :numberInterested, :showNavBar, :highlightCurrentPageOnNavBar, :taskeeId, :changeValueOnSelectTaskee, :changeButtonOnSelectTaskee, :changeValueOnConfirmTask, :changeButtonOnConfirmTask, :showSelectedTaskeeCard
+  helper_method :showStatus, :showNego, :numberInterested, :showNavBar, :highlightCurrentPageOnNavBar, :taskeeId, :changeValueOnSelectTaskee, :changeButtonOnSelectTaskee, :changeValueOnConfirmTask, :changeButtonOnConfirmTask, :showSelectedTaskeeCard, :successfulSelection, :changeTaskCardBackground, :taskStatusUpdate
 
   def index
 
@@ -16,10 +16,22 @@ class TasksController < ApplicationController
   def show
     @task = Task.find(params[:id])
     @taskees = Taskee.where(:task_id => params[:id])
+    
+    gon.tasker = current_user.username
+    gon.taskId = Task.find(params[:id]).id
+
+    @reputations = Reputation.all
+
+    @chats = Chat.where(:task_id => params[:id]).order(:created_at)
+    @chat = Chat.new
+
+
+
     # byebug
   end
 
   def new
+    
 
   end
 
@@ -42,8 +54,8 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     @task.update(task_params)
-    redirect_to tasks_path
-    # redirect_back(fallback_location: tasks_path)
+    # redirect_to tasks_path
+    redirect_back(fallback_location: tasks_path)
   end
 
   def destroy

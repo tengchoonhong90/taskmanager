@@ -1,22 +1,34 @@
 class TaskeesController < ApplicationController
 
-  helper_method :showStatus, :showNego, :promptIfBidded, :taskeeId, :changeFormMethodOnBid, :showBid, :bidType, :buttonIfBid, :showNavBar, :showUndoBid, :highlightCurrentPageOnNavBar, :changeValueOnSelectTaskee, :userSelected
+  helper_method :showStatus, :showNego, :promptIfBidded, :taskeeId, :changeFormMethodOnBid, :showBid, :bidType, :buttonIfBid, :showNavBar, :showUndoBid, :highlightCurrentPageOnNavBar, :changeValueOnSelectTaskee, :userSelected, :successfulSelection, :changeTaskeeCardBackground, :modalDataTarget
+
+  include ActionView::Helpers::NumberHelper
 
 	def index
 
-    if params.has_key?(:id)
-      @taskees = Taskee.where(id: params[:id] )
-      @tasks = Task.where(id: @taskees.first.task_id)
-    else
-      @tasks = Task.where.not(user_id: current_user.id)
-      @taskees = Taskee.all
-    end
+    gon.tasker = current_user.username
+
+    @chats = Chat.all
+    @chat = Chat.new
+
+    @tasks = Task.where.not(user_id: current_user.id)
+    @taskees = Taskee.all
 
   end
 
-  # def show
-  #   @taskee = Taskee.find(params[:id])
-  # end
+  def show
+
+    @taskees = Taskee.where(id: params[:id] )
+    @tasks = Task.where(id: @taskees.first.task_id)
+    
+    gon.tasker = current_user.username
+    gon.taskId = @tasks.first.id
+
+    @chats = Chat.where(:task_id => @tasks.first.id).order(:created_at)
+    @chat = Chat.new
+
+    
+  end
 
   def new
 

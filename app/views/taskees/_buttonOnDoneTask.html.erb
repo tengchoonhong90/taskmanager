@@ -9,34 +9,45 @@
 	>
 	
 	<%= 
-	taskNotDone = '
-		<input 
-			value=true
-			type="hidden"
-			name="taskee[done]" 
-			id="taskee_done"
-		>
-		<input 
-			type="submit" 
-			name="commit" 
-			value="Inform that Task is Done" 
-			data-disable-with="Save Task" 
-			class="btn btn-success logoFont"
-		>'
-    taskIsDone = '
-    	<strong class=" alert alert-success d-inline-block">
-    		You have done this task
-    	</strong>
-        '
+		taskNotDone = '
+			<input 
+				value=true
+				type="hidden"
+				name="taskee[done]" 
+				id="taskee_done"
+			>
+			<input 
+				type="submit" 
+				name="commit" 
+				value="Inform of Completion" 
+				data-disable-with="Save Task" 
+				class="btn btn-dark titleFont grow"
+			>
+			'
+	    taskIsDone = '
+	    	<strong class=" alert alert-success d-inline-block">
+	    		You have done this task
+	    	</strong>
+			'
 
-    userHasDone = @taskees.where(:task_id => task.id, :user_id => current_user.id, :done => true)
+	    userHasDone = @taskees.where(:task_id => task.id, :user_id => current_user.id, :done => true)
 
-	if userHasDone.exists? === true
-    	render html: taskIsDone.html_safe
-    else
-    	render html: taskNotDone.html_safe
-    end
- %>
+		if userHasDone.exists? === true
+	    	render html: taskIsDone.html_safe
+	    else
+	    	render html: taskNotDone.html_safe
+		end
+
+	 %>
+
+	 <button 
+		type="button" 
+		class="btn btn-primary titleFont grow" 
+		data-toggle="modal" 
+		<%= modalDataTarget(task.id) %> 
+	>
+	  Chat
+	</button>
 </form>
 
 

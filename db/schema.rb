@@ -10,17 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_07_025437) do
+ActiveRecord::Schema.define(version: 2019_02_10_132618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "locations", force: :cascade do |t|
-    t.string "name"
-    t.decimal "latitude"
-    t.decimal "longitude"
+  create_table "chats", force: :cascade do |t|
+    t.string "username"
+    t.string "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "task_id"
+    t.index ["task_id"], name: "index_chats_on_task_id"
   end
 
   create_table "reputations", force: :cascade do |t|
@@ -28,6 +29,8 @@ ActiveRecord::Schema.define(version: 2019_02_07_025437) do
     t.integer "rep"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "task_id"
+    t.index ["task_id"], name: "index_reputations_on_task_id"
     t.index ["user_id"], name: "index_reputations_on_user_id"
   end
 
@@ -76,4 +79,6 @@ ActiveRecord::Schema.define(version: 2019_02_07_025437) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "chats", "tasks"
+  add_foreign_key "reputations", "tasks"
 end
