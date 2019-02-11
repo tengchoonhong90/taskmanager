@@ -65,7 +65,9 @@
 						Close
 					</button>
 
-					<%= render partial: "chat", locals: {taskId: task.id, chat: chat} %>
+					<h1><% puts chat.inspect %></h1>
+
+					<%= render partial: "chat", locals: {taskId: task.id, chats: chat} %>
 
 				</div>
 			</div>

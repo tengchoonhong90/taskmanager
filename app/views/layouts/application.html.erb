@@ -16,9 +16,9 @@
   <body style="margin-top: 4rem;">
     <%= 
       if user_signed_in?
-        render partial: "navbarLoggedIn"
+        render partial: "shared/navbarLoggedIn"
       else
-        render partial: "navbarNewUser"
+        render partial: "shared/navbarNewUser"
       end
     %>
 
