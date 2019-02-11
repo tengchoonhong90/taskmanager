@@ -3,7 +3,8 @@
 <div>
 	<div class="mainCenter">
 
-	<h1 class="titleFont d-inline-block align-middle ml-5" style="margin:0;">Here are the available tasks.</h1>
+
+	<h1 class="titleFont d-inline-block align-middle" style="margin:0;">Here are the available tasks.</h1>
 
 	<%= render template: "components/infoOnIcons" %>
 
@@ -39,15 +40,9 @@
 						<%= (task.start_time).strftime("at %I:%M%p")  %>
 					</h5>
 
-					<p class="card-title">
+					<p class="card-title text-muted">
 						<small>
-							<a 
-								href="http://maps.google.com/?q=<%= task.location %>" 
-								target="_blank" 
-								style="text-decoration: none;" 
-								class="btn btn-outline-secondary btn-sm grow">
-								<%= task.location %>
-							</a>
+							<%= task.location %>
 						</small>
 					</p>
 
@@ -83,16 +78,20 @@
 							render partial: "buttonOnDoneTask", locals: {task: task}
 						end
 					%>
-					
-				</div>				
+
+				</div>
+
 			</div>
+
+			<div class="d-inline-block col-8">
+				<%= render partial: "chat", locals: {taskId: task.id, chat: @chats} %>
+			</div>
+
 			<% end %>
-			<div id="map"></div>
+			
+					<div id="map"></div>
+			
 		</div>
-		<div>
-			<% @tasks.each do |task| %>
-				<%= render partial: "chatModal", locals: {task: task, chat: @chats.where(:task_id => task.id).order(:created_at), chatModal: 'chatModal'+task.id.to_s } %>
-			<% end %>
-		</div>
+		<br />
 	</div>
 </div>

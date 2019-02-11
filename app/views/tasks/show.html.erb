@@ -26,7 +26,8 @@
             ">
                 <div class="card-body ">
 
-                    <%= showNego(@task.negotiable) %>
+                    <h5 class="card-text position-relative float-right titleFont text-white bg-dark rounded p-1 ml-3">
+                      <%= showNego(@task.negotiable) %>
                       <%= number_to_currency(@task.price) %>
                     </h5>
 
@@ -72,33 +73,44 @@
             </div>
             <% end %>
 
-            <div class = "col-4 d-inline-block">
+            <div class = "col-6 d-inline-block mt-3">
               <% @taskees.each do |taskee| %>
-                <div class="card">
+                <div class="col-8 card p-0">
                     <%= showSelectedTaskeeCard(taskee.selected) %>
+
+                      <p>
+                          <strong>
+                            <%= taskee.user.username %>
+                          </strong> 
+                          <%=
+                            render partial: "calculateTaskeeRep", locals: {taskee: taskee, reputation: @reputations}
+                          %>
+                          <%= 
+                            if @task.negotiable === true
+                              render partial: "showBidding", locals: {taskee: taskee}
+                            else
+                              render plain: "has indicated interest."
+                            end
+                          %>
+                      </p>
+                      
+
                       <%= 
-                        if @task.negotiable === true
-                          render partial: "showBidding", locals: {taskee: taskee}
-                        else
-                          render partial: "showIndicating", locals: {taskee: taskee}
+                        if @task.confirmed != true
+                          render partial: "selectingTaskee", locals: {taskee: taskee}
                         end
                       %>
-                      <form action= <%= "/taskees/"+taskee.id.to_s %> accept-charset="UTF-8" data-remote="true" method="post">
-                        <input name="_method" type="hidden" value="patch" />
-                        <input name="utf8" type="hidden" value="✓">
-                        <input 
-                          type="hidden" 
-                          name="taskee[selected]" 
-                          id="taskee_selected" 
-                          value=<%= changeValueOnSelectTaskee(taskee.selected) %> 
-                        >
-                        <input 
-                          type="submit" 
-                          name="commit" 
-                          <%= changeButtonOnSelectTaskee(taskee.selected) %>  
-                          data-disable-with="Save Task" 
-                          >
-                      </form>
+
+                      <%= 
+                        if @reputations.where(:task_id => @task.id, :user_id => taskee.user_id).exists? === true
+                          render plain: "You have reviewed this taskee."
+                        elsif taskee.selected === true && @task.confirmed === true && @task.completed === true || @task.incomplete === true
+                          render partial: "reviewingTaskee", locals: {taskee: taskee, task: @task}
+                        elsif taskee.selected === true && @task.confirmed === true
+                          render plain: "You may review this taskee only after concluding the task below."
+                        end
+                      %>
+
                     </div>
                 </div>
               <% end %>
@@ -107,7 +119,7 @@
                 confirmedTask = @task.confirmed
                 if selectedTaskee === true 
                   if confirmedTask === true
-                    render html: '<strong class=" alert alert-warning d-inline-block">Task Confirmed</strong>'.html_safe
+                    render html: '<strong class=" alert alert-warning d-inline-block mt-3">Task Confirmed</strong>'.html_safe
                   else
                     render partial: "buttonToConfirmTaskee", locals: {task: @task}
                   end
@@ -135,8 +147,10 @@
                   render partial: "buttonToConcludeTask", locals: {task: @task, setName: "task[incomplete]", setId: "task_incomplete", setButton: "incomplete" }
                 end
               %>
-              <div id="map"></div>
+              <%= render partial: "chat", locals: {taskId: @task.id, chat: @chats} %>
           </div>
+          
+          <div id="map"></div>
         </div>
         <br/>
     </div>

@@ -42,12 +42,9 @@ class ApplicationController < ActionController::Base
 	end
 
 	def showNego(status)
-		notNegotiable = '<h5 class="card-text position-relative float-right titleFont text-white bg-dark rounded p-1 ml-3">'
-		negotiable = '<h5 class="card-text position-relative float-right titleFont text-white bg-secondary rounded p-1 ml-3">'
+		negotiable = '≈'
 		if status === true
-			return negotiable.html_safe
-		else
-			return notNegotiable.html_safe
+			return negotiable
 		end
 	end
 
@@ -71,7 +68,7 @@ class ApplicationController < ActionController::Base
 
 		userHasBidded = @taskees.where(:task_id => task.id, :user_id => current_user.id)
 		bidSum = showBid(task)
-		bidSumCurrency = view_context.number_to_currency(bidSum)
+		bidSumCurrency = number_to_currency(bidSum).to_s
 
 		bidded = '<strong class=" alert alert-warning d-inline-block">You have bidded ' + bidSumCurrency +'</strong>' 
 		indicated = '<strong class=" alert alert-warning d-inline-block">You have indicated interest</strong>'
@@ -157,6 +154,10 @@ class ApplicationController < ActionController::Base
 
 	def changeButtonOnConfirmTask(status)
 		return status === true ? "Un-Confirm" : "Confirm"
+	end
+
+	def modalDataTarget(taskId)
+		return 'data-target=#chatModal'+taskId.to_s
 	end
 
 	def bidType(task)
