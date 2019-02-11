@@ -1,0 +1,96 @@
+<div>
+	<div class="mainCenter">
+
+	<h1 class="titleFont d-inline-block align-middle ml-5" style="margin:0;">Here are the available tasks.</h1>
+
+	<%= render template: "components/infoOnIcons" %>
+
+		<div>
+			<% @tasks.each do |task| %>
+			<% provide :head_tags do %>
+			<meta name='turbolinks-visit-control' content='reload'>
+			<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyATiUC-CYabYFtmwdk5Aw88h1PAyTP8zGI&libraries=places'></script>
+			<script>
+				document.addEventListener("DOMContentLoaded", function () {
+					currentMap(<%=task.latitude%>, <%=task.longitude%>)
+				});
+			</script>
+			<% end %>
+			<div 
+				class="card d-inline-block align-top m-3 grow" 
+				style="<%=changeTaskeeCardBackground(task) %> border-width: 5px; width: 20rem;"
+			>
+				<div class="card-body">
+
+					<h5 class="card-text position-relative float-right titleFont text-white bg-dark rounded p-1 ml-3">
+						<%= showNego(task.negotiable) %>
+						<%= number_to_currency(task.price) %>
+					</h5>
+					
+					<h5 class="card-title titleFont">
+						<%= task.task_name %>
+					</h5>			
+					
+					<h5 class="card-text">
+						<%= (task.start_time).strftime("%d/%m/%Y ")  %>
+						<br>
+						<%= (task.start_time).strftime("at %I:%M%p")  %>
+					</h5>
+
+					<p class="card-title">
+						<small>
+							<a 
+								href="http://maps.google.com/?q=<%= task.location %>" 
+								target="_blank" 
+								style="text-decoration: none;" 
+								class="btn btn-outline-secondary btn-sm grow">
+								<%= task.location %>
+							</a>
+						</small>
+					</p>
+
+					<h6 class="card-subtitle mb-2 text-muted innerDesc">
+						<%= task.task_description %>
+					</h6>
+
+					<p class="card-text">
+						<small>
+							Posted by: <strong>
+								<%= task.user.username %></strong>
+								<br>
+							on:
+								<%= (task.created_at).strftime("%d/%m/%Y at %I:%M%p")  %>
+						</small>
+					</p>
+
+					<%= promptIfBidded(task) %>
+
+					<%=
+						if successfulSelection(task)  === true
+							render html: '<strong class=" alert alert-success d-inline-block">You are selected for this task</strong>'.html_safe
+
+						elsif task.confirmed === true && userSelected(task) === false
+							render html: '<strong class=" alert alert-danger d-inline-block">You were not selected for this task</strong>'.html_safe
+						else
+							render partial: "editTaskeeChoice", locals: {task: task}
+						end
+					%>
+	
+					<%=
+						if successfulSelection(task)  === true
+							render partial: "buttonOnDoneTask", locals: {task: task}
+						end
+					%>
+					
+				</div>				
+			</div>
+			<% end %>
+			<div id="map"></div>
+		</div>
+		<div>
+			<% @tasks.each do |task| %>
+				<%= render partial: "shared/chatModal", locals: {task: task, chat: @chats.where(:task_id => task.id).order(:created_at), chatModal: 'chatModal'+task.id.to_s } %>
+			<% end %>
+		</div>
+	</div>
+</div>

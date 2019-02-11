@@ -1,0 +1,74 @@
+<div class="modal fade" id=<%= chatModal %> tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div 
+					class="card d-inline-block align-top m-3" 
+					style="<%=changeTaskeeCardBackground(task) %> border-width: 5px; width: 20rem;"
+				>
+					<div class="card-body">
+
+						<%= showNego(task.negotiable) %>
+							<%= number_to_currency(task.price) %>
+						</h5>
+						
+						<h5 class="card-title titleFont">
+							<%= task.task_name %>
+						</h5>			
+						
+						<h5 class="card-text">
+							<%= (task.start_time).strftime("%d/%m/%Y ")  %>
+							<br>
+							<%= (task.start_time).strftime("at %I:%M%p")  %>
+						</h5>
+
+						<p class="card-title text-muted">
+							<small>
+								<%= task.location %>
+							</small>
+						</p>
+
+						<h6 class="card-subtitle mb-2 text-muted innerDesc">
+							<%= task.task_description %>
+						</h6>
+
+						<p class="card-text">
+							<small>
+								Posted by: <strong>
+									<%= task.user.username %></strong>
+									<br>
+								on:
+									<%= (task.created_at).strftime("%d/%m/%Y at %I:%M%p")  %>
+							</small>
+						</p>
+
+						<%= promptIfBidded(task) %>
+
+						<%=
+							if successfulSelection(task)  === true
+								render html: '<strong class=" alert alert-success d-inline-block">You are selected for this task</strong>'.html_safe
+
+							elsif task.confirmed === true && userSelected(task) === false
+								render html: '<strong class=" alert alert-danger d-inline-block">You were not selected for this task</strong>'.html_safe
+							else
+								render partial: "editTaskeeChoice", locals: {task: task}
+							end
+						%>
+
+					</div>
+
+				</div>
+
+				<div class="col-6 d-inline-block">
+
+					<button type="button" class="btn btn-secondary block titlefont mt-3 float-right" data-dismiss="modal">
+						Close
+					</button>
+
+					<%= render partial: "shared/chat", locals: {taskId: task.id, chats: chat} %>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

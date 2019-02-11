@@ -1,0 +1,64 @@
+<div id="homepage">
+
+<style>
+body {
+		margin: 0 auto;
+		width: 100%;
+		background-color: rgba(255,255,255);
+}
+</style>
+
+<div class="index-foo">
+			<div class="row">
+				<div class="col-sm-6" id="banner1">
+						Want to Give Back to the Community?
+						<p class="pp" style="font-size:24px;"> View a variety of Tasks through specified filters to find the niche you enjoy.
+						</p>
+					</div>
+				<div class="col-sm-6" id="banner2">
+						Need Help with Something?
+					<p class="pp" style="font-size:24px;"> Meet Task Manager. The app that connects you to other like minded individuals to meet your demands.</p>
+					</div>
+		</div>
+		<div class="heading">
+			<h1> How it Works </h1>
+		</div>
+
+<section class="section">
+<div class="container--wide">
+	<div class="row">
+		<div class="col-10 col-md-8 col-lg-6 col-centered">
+			<div class="how-it-works">
+				<div class="step-1">
+					<div class="image_container_1">
+					<%= image_tag("homepage/todo.png",size: "180x180") %>
+					</div>
+					<div class="inner-content">
+						<!-- <div class ="title">Describe the task</div> -->
+						Choose from a variety of home services and select the day and time you'd like a qualified Tasker to show up. Give us the details and we'll find you the help.
+					</div>
+				</div>
+				<div class="step-1">
+					<div class="inner-content">
+						<!-- <div class ="title">Get matched</div> -->
+						Select from a list of qualified and fully vetted Taskers for the job. Choose Taskers by their hourly rate and start chatting with them right in the app.
+					</div>
+					<div class="image_container_1">
+					<%= image_tag("homepage/findmatch.jpg",size: "180x180") %>
+					</div>
+
+				</div>
+								<div class="step-1">
+					<div class="image_container_1">
+					<%= image_tag("homepage/accept.png",size: "180x180") %>
+					</div>
+					<div class="inner-content">
+						<!-- <div class ="title">Get it done</div> -->
+						Just like that, your Tasker arrives and gets the job done. When your task is complete, payment will happen seamlessly and securely through the app.
+					</div>
+				</div>
+	</div>
+</div>
+</section>
+
+<%= render template: "components/footer"%>

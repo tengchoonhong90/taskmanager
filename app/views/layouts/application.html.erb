@@ -4,12 +4,31 @@
     <title>Taskmanager</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Raleway" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cherry+Swash:700" rel="stylesheet">
+    <%= include_gon %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="https://js.pusher.com/4.1/pusher.min.js"></script> 
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= yield(:head_tags) %>
   </head>
+ 
+  <body style="margin-top: 4rem;">
+    <%= 
+      if user_signed_in?
+        render partial: "shared/navbarLoggedIn"
+      else
+        render partial: "shared/navbarNewUser"
+      end
+    %>
 
-  <body>
+  	<% if notice %>
+      <p class="alert alert-success"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
     <%= yield %>
+
   </body>
 </html>

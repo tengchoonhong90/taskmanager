@@ -1,0 +1,76 @@
+<% provide :head_tags do %>
+<meta name='turbolinks-visit-control' content='reload'>
+<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyATiUC-CYabYFtmwdk5Aw88h1PAyTP8zGI&libraries=places'></script>
+<script>
+	document.addEventListener("DOMContentLoaded", newMap);
+</script>
+<% end %>
+
+<div class="mt-3">
+  <div class="col-8 mainCenter">
+    <%= form_with scope: :task, url: tasks_path, local: true do |form| %>
+
+      <h1 class="alignCenter titleFont">What do you need to get done?</h1>
+
+      <div class="form-group">
+        <label for="TaskName">Task Title:</label>
+        <%= form.text_field :task_name, placeholder:"What needs to be done?", class: "form-control", autofocus: true %>
+        <p class="error alert-warning">
+          <%= show_errors(@task, :task_name) %>
+        </p>
+      </div>
+
+      <div class="form-group" id="googlemap">
+        <label for="Location">Address:</label><br>
+        <%= form.text_field :location, id: "pac-input", class: "form-control", placeholder: "Search Address"%>
+        <%= form.hidden_field :latitude %>
+        <%= form.hidden_field :longitude %><br>
+        <div id="map"></div>
+      </div>
+
+      <div class="form-group">
+          <label for="TaskDescription">Task Description:</label>
+          <%= form.text_area :task_description, placeholder:"Please be detailed.", class: "form-control", autofocus: true %>
+          <small class="form-text text-muted">It is best to be S.M.A.R.T - Specific, Measurable, Achievable, Realistic, Time-based</small>
+        <p class="error alert-warning">
+          <%= show_errors(@task, :task_description) %>
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label for="StartTime">Start Date and Time:</label>
+        <input type="datetime-local" id="task_start_time"
+           name="task[start_time]">
+        <small class="form-text text-muted">What time does the task start?</small>
+        <p class="error alert-warning">
+          <%= show_errors(@task, :start_time) %>
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label for="Price">Price ($):</label>
+        <%= form.text_field :price , placeholder:"Minimum: $0", class: "form-control", autofocus: true%>
+        <small class="form-text text-muted">(How much are you willing to pay?)</small>
+        <p class="error alert-warning">
+          <%= show_errors(@task, :price) %>
+        </p>
+      </div>
+
+      <div class="form-group">
+          <label for="Negotiable">Is the price negotiable?</label>
+          <input type="checkbox" name="task[negotiable]" id="task_negotiable" value=true> Yes
+<!--           <input type="checkbox" name="task[negotiable]" id="task_negotiable" value=false> No  -->
+<!--           <p class="error alert-warning">
+            <%= show_errors(@task, :negotiable) %>
+          </p> -->
+      </div>
+
+      <div class="alignCenter">
+        <input type="submit" name="commit" value="Confirm Task Listing" data-disable-with="Save Task" class="btn btn-success logoFont">
+      </div>
+
+    <% end %>
+
+    <%= link_to 'Back', tasks_path %>
+  </div>
+</div>
