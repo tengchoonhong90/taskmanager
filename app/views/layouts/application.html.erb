@@ -11,10 +11,14 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= yield(:head_tags) %>
   </head>
- 
+
   <body style="margin-top: 4rem;">
   	<% if notice %>
-  <p class="alert alert-success"><%= notice %></p>
+
+ <p class="alert alert-success"><%= notice %></p>
+
+
+
     <% end %>
     <% if alert %>
       <p class="alert alert-danger"><%= alert %></p>
