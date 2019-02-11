@@ -1,21 +1,12 @@
 <div>
 	<div class="mainCenter">
 
-	<h1 class="titleFont d-inline-block align-middle ml-5" style="margin:0;">Here are the available tasks.</h1>
+	<h1 class="titleFont d-inline-block align-middle ml-5" style="margin:0;">Opportunities for you:</h1>
 
 	<%= render template: "components/infoOnIcons" %>
 
 		<div>
 			<% @tasks.each do |task| %>
-			<% provide :head_tags do %>
-			<meta name='turbolinks-visit-control' content='reload'>
-			<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyATiUC-CYabYFtmwdk5Aw88h1PAyTP8zGI&libraries=places'></script>
-			<script>
-				document.addEventListener("DOMContentLoaded", function () {
-					currentMap(<%=task.latitude%>, <%=task.longitude%>)
-				});
-			</script>
-			<% end %>
 			<div 
 				class="card d-inline-block align-top m-3 grow" 
 				style="<%=changeTaskeeCardBackground(task) %> border-width: 5px; width: 20rem;"
@@ -85,7 +76,6 @@
 				</div>				
 			</div>
 			<% end %>
-			<div id="map"></div>
 		</div>
 		<div>
 			<% @tasks.each do |task| %>

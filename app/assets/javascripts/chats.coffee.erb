@@ -6,17 +6,16 @@ $(document).ready =>
 
       username = gon.tasker
       $('#username').val(username)
-      $('.username').removeClass('d-none')
-      console.log("jquery")
 
       $('#chat-form').on 'ajax:success', (data) ->
-        console.log("ajax-success")
         $('#chat-form')[0].reset()
         updateChat data.detail[0]
         return
 
+        condition = "if data.task_id == parseInt($('input#task_id').val())"
+
       updateChat = (data) ->
-	      if data.task_id == gon.taskId
+	      if data.task_id == parseInt($('input#task_id').val())
 	        $('.chat-box').append """
 	          <div class="col-12">
 	            <div class="chat bg-secondary d-inline-block text-left text-white mb-2">

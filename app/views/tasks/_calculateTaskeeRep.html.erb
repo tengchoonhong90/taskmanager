@@ -1,6 +1,6 @@
 <%=
 	if reputation.exists?(user_id: taskee.user_id) === true
-		taskeeRep = @reputations.where(user_id: 2).average(:rep).to_s
+		taskeeRep = @reputations.where(user_id: taskee.user_id).average(:rep).to_s
 		rating = '(<strong>' + taskeeRep + '</strong>/5)'
 		render html: rating.html_safe
 	else
