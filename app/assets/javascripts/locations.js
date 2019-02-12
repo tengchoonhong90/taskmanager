@@ -266,33 +266,32 @@ function showAll() {
 
     // Loop through our array of markers & place each one on the map  
     for (let i = 0; i < taskArray.length; i++) {
-        for (let j = 0; j < taskeeArray.length; j++) {
-            if (taskArray[i].id == taskeeArray[j].task_id && taskArray[i].user_id != current_user && taskArray[i].completed != true) {
-                var position = new google.maps.LatLng(taskArray[i].latitude, taskArray[i].longitude);
-                bounds.extend(position);
-                marker = new google.maps.Marker({
-                    position: position,
-                    map: map,
-                    title: taskArray[i].task_name
-                });
+        if (taskArray[i].user_id != current_user && taskArray[i].latitude != null) {
+            var position = new google.maps.LatLng(taskArray[i].latitude, taskArray[i].longitude);
+            bounds.extend(position);
+            marker = new google.maps.Marker({
+                position: position,
+                map: map,
+                title: taskArray[i].task_name
+            });
 
-                // Allow each marker to have an info window    
-                google.maps.event.addListener(marker, 'click', (function (marker, i) {
-                    return function () {
-                        infoWindow.setContent(`<div><h5>${taskArray[i].task_name}</h5><div>
+            // Allow each marker to have an info window    
+            google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                return function () {
+                    infoWindow.setContent(`<div><h5>${taskArray[i].task_name}</h5><div>
                   <div>${taskArray[i].task_description}<div>
-                  <div><a href="/taskees/${taskeeArray[j].id}">To Task</a></div>
+                  <div><a href="/taskees/${taskArray[i].id}">To Task</a></div>
                   `);
-                        map.setCenter(marker.getPosition())
-                        map.setZoom(15)
-                        infoWindow.open(map, marker);
-                    }
-                })(marker, i));
+                    map.setCenter(marker.getPosition())
+                    map.setZoom(15)
+                    infoWindow.open(map, marker);
+                }
+            })(marker, i));
 
-                // Automatically center the map fitting all markers on the screen
-                map.fitBounds(bounds);
-            }
+            // Automatically center the map fitting all markers on the screen
+            map.fitBounds(bounds);
         }
+
     }
 
     // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
