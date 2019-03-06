@@ -6,4 +6,8 @@ module ApplicationHelper
 	    end
 	  end
 	end
+
+	def foobar
+		"hell********o"
+	end
 end
